@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.weichao.keshi.activity.WebGuideActivity">
+
+   <ImageView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@mipmap/bg_android"
+       android:id="@+id/imageView2" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_web_guide"
+        android:layout_below="@id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
