@@ -41,7 +41,6 @@ public class RecyclerActivity extends AppCompatActivity {
             .mipmap.p32, R.mipmap.p33, R.mipmap.p34,R.mipmap.p35, R.mipmap.p36, R.mipmap
             .p37, R.mipmap.p38, R.mipmap.p39, R.mipmap.p40, R.mipmap.p41, R.mipmap.p42, R
             .mipmap.p43,R.mipmap.p44};
-    /* */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
