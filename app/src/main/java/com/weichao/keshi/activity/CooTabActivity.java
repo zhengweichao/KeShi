@@ -86,6 +86,7 @@ public class CooTabActivity extends BaseActivity {
     }
 
     private void initViewPager() {
+
         mViewPager = (ViewPager) findViewById(R.id.vp);
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));

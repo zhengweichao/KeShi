@@ -1,21 +1,19 @@
 package com.weichao.keshi.activity;
 
 import android.support.v4.app.Fragment;
-
 import com.weichao.keshi.R;
 import com.weichao.keshi.fragment.HomeFragment;
 import com.weichao.keshi.fragment.TabFragment2;
 import com.weichao.keshi.fragment.TabFragment3;
 import com.weichao.keshi.view.BottomTabView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Created by 郑卫超 on 2017/5/23.
+ * @ 创建时间: 2017/5/17 on 11:31.
+ * @ 描述：主界面 Activity
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class HomeActivity extends BottomTabBaseActivity {
 
     @Override
@@ -40,7 +38,7 @@ public class HomeActivity extends BottomTabBaseActivity {
     }
 
    /*
-   中间按钮
+   // 中间按钮
    @Override
     protected View getCenterView() {
         ImageView centerView = new ImageView(this);

@@ -13,7 +13,7 @@ import com.weichao.keshi.R;
 
 
 /**
- * Created by 陈序员 on 2017/5/3.
+ * Created by 郑卫超 on 2017/5/3.
  * Email: Matthew_Chen_1994@163.com
  * Blog: https://blog.ifmvo.cn
  */
@@ -23,8 +23,6 @@ public class TabFragment4 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_tab, null);
-        TextView tv = (TextView) inflate.findViewById(R.id.txt);
-        tv.setBackgroundColor(Color.GREEN);
         return inflate;
     }
 }

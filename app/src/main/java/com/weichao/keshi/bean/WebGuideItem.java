@@ -3,8 +3,8 @@ package com.weichao.keshi.bean;
 import android.support.annotation.DrawableRes;
 
 /**
- * @ 创建时间: 2017/5/14 on 9:10.
- * @ 描述：模块条目
+ * @ 创建时间: 2017/5/19 on 19:21.
+ * @ 描述：网址导航条目
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 

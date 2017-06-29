@@ -3,6 +3,7 @@ package com.weichao.keshi.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +13,12 @@ import android.widget.Toast;
 import com.weichao.keshi.R;
 
 /**
- * @ 创建时间: 2017/5/14 on 11:16.
- * @ 描述：
+ * @ 创建时间: 2017/5/17 on 11:16.
+ * @ 描述：Activity基类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 
-public abstract class BaseActivity extends Activity implements View.OnClickListener {
+public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

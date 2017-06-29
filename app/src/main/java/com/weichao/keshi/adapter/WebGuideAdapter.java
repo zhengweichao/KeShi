@@ -9,7 +9,7 @@ import xyz.zpayh.adapter.BaseViewHolder;
 
 /**
  * @ 创建时间: 2017/5/13 on 13:09.
- * @ 描述：
+ * @ 描述：网页导航适配器
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 

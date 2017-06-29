@@ -2,7 +2,6 @@ package com.weichao.keshi.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.weichao.keshi.R;
-import com.weichao.keshi.adapter.MoudleAdapter;
 import com.weichao.keshi.adapter.WebGuideAdapter;
-import com.weichao.keshi.bean.MoudleItem;
 import com.weichao.keshi.bean.WebGuideItem;
 
 import java.util.ArrayList;
@@ -36,16 +33,17 @@ public class WebGuideActivity extends BaseActivity {
     @Override
     void initView() {
         String[] WebTitleName = {"学校官网","教务处","图书馆",
-                "贴吧"
+                "贴吧","街景"
         };
-        int[] WebLogo={R.mipmap.lose,R.mipmap.buysale,R.mipmap.loveshow,
-            R.mipmap.news
+        int[] WebLogo={R.mipmap.ic_keshi,R.mipmap.buysale,R.mipmap.ic_library,
+            R.mipmap.news,R.mipmap.news
         };
 
         String[] urls={"http://www.hevttc.edu.cn/",
                 "http://www.hevttc.edu.cn/",
                 "http://w3.hevttc.edu.cn/tsg/",
-                "http://tieba.baidu.com/f?kw=%E6%B2%B3%E5%8C%97%E7%A7%91%E6%8A%80%E5%B8%88%E8%8C%83%E5%AD%A6%E9%99%A2"
+                "http://tieba.baidu.com/f?kw=%E6%B2%B3%E5%8C%97%E7%A7%91%E6%8A%80%E5%B8%88%E8%8C%83%E5%AD%A6%E9%99%A2",
+                "http://map.qq.com/#pano=11031132130703102635000&heading=327&pitch=11&zoom=1"
         };
 
         rv_web_guide = (RecyclerView) findViewById(R.id.rv_web_guide);

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tvMessageTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/ivRobot"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/tvMessageTime"
+        android:padding="10dp"
+        android:src="@drawable/robot_bg" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMessageTime"
+        android:layout_marginRight="50dp"
+        android:layout_toRightOf="@id/ivRobot"
+        android:background="@drawable/message_left"
+        android:textColor="@color/white"
+        android:gravity="left|center_vertical" />
+
+</RelativeLayout>

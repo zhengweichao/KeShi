@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="姓名"
+        android:id="@+id/tv_name"
+        android:textSize="18sp"
+        android:textColor="#000"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="学号"
+        android:id="@+id/tv_stu_num"
+        android:textSize="18sp"
+        android:layout_below="@id/tv_name"
+        android:textColor="#000"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="性别"
+        android:id="@+id/tv_sex"
+        android:textSize="18sp"
+        android:layout_below="@id/tv_stu_num"
+        android:textColor="#000"/>
+
+</RelativeLayout>
