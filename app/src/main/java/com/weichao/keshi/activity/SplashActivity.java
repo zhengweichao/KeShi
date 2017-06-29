@@ -14,7 +14,7 @@ import cn.smssdk.SMSSDK;
 
 public class SplashActivity extends BaseActivity {
     private Button btn_splash_jump;
-    private CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+    private CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
             Log.e("zwc", "onTick: "+ millisUntilFinished);
