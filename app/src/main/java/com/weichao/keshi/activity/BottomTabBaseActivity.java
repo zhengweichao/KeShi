@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.stephentuso.welcome.WelcomeHelper;
 import com.weichao.keshi.R;
@@ -21,17 +23,17 @@ import java.util.List;
  * @ 描述：底部标签页面基类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-public abstract class BottomTabBaseActivity extends FragmentActivity {
+public abstract class BottomTabBaseActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     BottomTabView bottomTabView;
     FragmentPagerAdapter adapter;
 
-
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(R.layout.activity_base_bottom_tab);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -56,8 +58,32 @@ public abstract class BottomTabBaseActivity extends FragmentActivity {
         }
 
         bottomTabView.setUpWithViewPager(viewPager);
+        initListener();
+
     }
 
+    private void initListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    findViewById(R.id.layout_title).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.layout_title).setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
 
 
     protected abstract List<BottomTabView.TabItemView> getTabViews();
@@ -67,5 +93,6 @@ public abstract class BottomTabBaseActivity extends FragmentActivity {
     protected View getCenterView() {
         return null;
     }
+
 
 }

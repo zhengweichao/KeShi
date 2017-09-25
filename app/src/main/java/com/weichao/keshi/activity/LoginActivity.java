@@ -5,29 +5,26 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
 import com.stephentuso.welcome.WelcomeHelper;
-import com.weichao.keshi.CONFIG;
 import com.weichao.keshi.R;
+import com.weichao.keshi.bean.MyUser;
+import com.weichao.keshi.utils.LogUtils;
 
-import okhttp3.Call;
-import okhttp3.Response;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * @ 创建时间: 2017/6/13 on 16:03.
  * @ 描述：登录页面
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-public class LoginActivity extends Activity  implements View.OnClickListener {
+public class LoginActivity extends Activity implements View.OnClickListener {
     private static final int REQUEST_SIGNUP = 0;
     EditText et_username;
     EditText et_password;
@@ -55,18 +52,15 @@ public class LoginActivity extends Activity  implements View.OnClickListener {
     }
 
     int getLayoutId() {
-
         return R.layout.activity_login;
     }
 
     void initView() {
-
         //通过id找控件
         et_username = (EditText) findViewById(R.id.input_username);
         et_password = (EditText) findViewById(R.id.input_password);
         btn_login = (Button) findViewById(R.id.btn_login);
         tv_signup = (TextView) findViewById(R.id.link_signup);
-
     }
 
     void initData() {
@@ -107,9 +101,8 @@ public class LoginActivity extends Activity  implements View.OnClickListener {
             onLoginFailed();
             return;
         }
-        onLoginSuccess();
 
-        /*//输入合法，将登录按钮置为不可用，显示圆形进度对话框
+        //输入合法，将登录按钮置为不可用，显示圆形进度对话框
         btn_login.setEnabled(false);
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
@@ -119,25 +112,27 @@ public class LoginActivity extends Activity  implements View.OnClickListener {
         String username = et_username.getText().toString().trim();
         String password = et_password.getText().toString().trim();
         //联网，获取数据
-        OkGo.get(CONFIG.URL_LOGIN)
-                .params("username", username)
-                .params("password", password)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(String s, Call call, Response response) {
-                        Gson gson = new Gson();
-                        JsonLoginBean jsonLoginBean = gson.fromJson(s, JsonLoginBean.class);
-                        //如果得到权限>0,则登录成功。
-                        if (jsonLoginBean.getPermission() > 0) {
-                            Log.e("zwc", "onSuccess: ===");
-                            onLoginSuccess();
-                            progressDialog.dismiss();
-                        } else {
-                            onLoginFailed();
-                            progressDialog.dismiss();
-                        }
-                    }
-                });*/
+        MyUser myUser = new MyUser();
+        myUser.setUsername(username);
+        myUser.setPassword(password);
+        myUser.login(new SaveListener<MyUser>() {
+
+            @Override
+            public void done(MyUser bmobUser, BmobException e) {
+                if (e == null) {
+                    LogUtils.e("登录成功:");
+                    onLoginSuccess();
+                    progressDialog.dismiss();
+
+                    //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
+                    //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
+                } else {
+                    LogUtils.e("登录失败");
+                    onLoginFailed();
+                    progressDialog.dismiss();
+                }
+            }
+        });
     }
 
     @Override

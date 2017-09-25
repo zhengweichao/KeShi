@@ -1,27 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!---->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:clipChildren="false"
+<?xml version="1.0" encoding="utf-8"?><!---->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_bar" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
     <View
         android:layout_width="match_parent"
-        android:background="#c7c7c7"
-        android:layout_height="0.1dp"/>
+        android:layout_height="0.1dp"
+        android:background="#c7c7c7" />
 
     <com.weichao.keshi.view.BottomTabView
         android:id="@+id/bottomTabView"
-        android:background="#feffff"
-        android:gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="45dp"/>
+        android:layout_height="45dp"
+        android:background="#feffff"
+        android:gravity="bottom" />
 </LinearLayout>

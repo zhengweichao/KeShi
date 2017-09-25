@@ -7,32 +7,35 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/et_location_query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:hint="请输入要查询的姓名"
-        android:id="@+id/et_location_query"/>
+        android:textSize="18sp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/bt_location_query"
-        android:text="查询"/>
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="查询" />
+
+    <Button
         android:id="@+id/bt_local_query_class"
-        android:text="按照班级查询"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="按照班级查询" />
+
     <TextView
         android:id="@+id/tv_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
+
     <ListView
-        android:layout_marginTop="15dp"
+        android:id="@+id/lv_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:id="@+id/lv_result"/>
+        android:layout_marginTop="15dp"
+        android:textSize="18sp" />
 
 </LinearLayout>

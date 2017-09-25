@@ -1,11 +1,16 @@
 package com.weichao.keshi.activity;
 
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
+import android.widget.Toast;
+
 import com.weichao.keshi.R;
 import com.weichao.keshi.fragment.HomeFragment;
 import com.weichao.keshi.fragment.TabFragment2;
 import com.weichao.keshi.fragment.TabFragment3;
+import com.weichao.keshi.fragment.TabFragment4;
 import com.weichao.keshi.view.BottomTabView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +20,15 @@ import java.util.List;
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class HomeActivity extends BottomTabBaseActivity {
+    private long mExitTime;
 
     @Override
     protected List<BottomTabView.TabItemView> getTabViews() {
         List<BottomTabView.TabItemView> tabItemViews = new ArrayList<>();
         tabItemViews.add(new BottomTabView.TabItemView(this, "首页", R.color.colorPrimary,
-                R.color.colorAccent,  R.mipmap.main_home_nor, R.mipmap.main_home_pre));
+                R.color.colorAccent, R.mipmap.main_home_nor, R.mipmap.main_home_pre));
         tabItemViews.add(new BottomTabView.TabItemView(this, "新闻", R.color.colorPrimary,
-                R.color.colorAccent,  R.mipmap.main_buy_nor, R.mipmap.main_buy_pre));
+                R.color.colorAccent, R.mipmap.main_buy_nor, R.mipmap.main_buy_pre));
         tabItemViews.add(new BottomTabView.TabItemView(this, "我的", R.color.colorPrimary,
                 R.color.colorAccent, R.mipmap.main_user_nor, R.mipmap.main_user_pre));
         return tabItemViews;
@@ -32,9 +38,32 @@ public class HomeActivity extends BottomTabBaseActivity {
     protected List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
-        fragments.add(new TabFragment2());
+        fragments.add(new TabFragment4());
         fragments.add(new TabFragment3());
         return fragments;
+    }
+
+
+    /**
+     * 重写返回键返回方法，防止误触退出
+     *
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(HomeActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
    /*

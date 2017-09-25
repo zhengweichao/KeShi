@@ -22,8 +22,7 @@ public class LoseFindActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lose_find);
-        SMSSDK.initSDK(this, "1e434cd6d52f8", "2b4c6025debb8f83b6087449036877ad");
-
+//        SMSSDK.initSDK(this, "1e434cd6d52f8", "2b4c6025debb8f83b6087449036877ad");
 
         //打开注册页面
         RegisterPage registerPage = new RegisterPage();
@@ -45,7 +44,6 @@ public class LoseFindActivity extends AppCompatActivity {
         registerPage.setRegisterCallback(eventHandler);
         registerPage.show(LoseFindActivity.this);
         SMSSDK.registerEventHandler(eventHandler);
-
 
     }
 }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">科师有约</string>
-    <string name="welcome_tips">您可以发送文字给我，然后我会将消息反馈给客服人员。</string>
+    <string name="welcome_tips">您可以把意见或者建议发送给我，然后我会将消息反馈给学生会或者学校组织。</string>
 
     <string-array name="reply_tips">
         <item>发送成功，您可以点击右上角的调色板更换消息颜色哦~</item>
@@ -80,6 +80,20 @@
 
     <string name="pref_title_ringtone">Ringtone</string>
     <string name="pref_ringtone_silent">Silent</string>
+    <string name="login_username_error">请输入有效账号</string>
+    <string name="login_password_error">请输入密码</string>
+    <string name="password">密码</string>
+    <string name="re_password">重复密码</string>
+    <string name="username">用户名</string>
+    <string name="signup">创建账号</string>
+    <string name="login">登录</string>
+    <string name="jump_login">已有账号？马上登陆</string>
+    <string name="jump_signup">没有账号？创建一个</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="phone">手机号</string>
+    <string name="logout">退出登录</string>
+    <string name="contacts">校园通讯录</string>
+    <string name="xiaoli_tip">在校生返校时间：2017年8月26日、27日\n在校生上课时间：2017年8月28日\n新生报到时间：2017年9月13日\n新生入学教育以及军训：2017年9月14-9月24日。\n新生上课时间：2017年9月25日（第五周）\n节假日：与国家基本法定规定时间一致。\n创新创业活动周以及考试周：第10周10月30日-11月5日</string>
+    <string name="xiaoli_tip0">1.寒假：2018年1月22日-3月4日。\n2.中秋节：10月4日中秋节放假。\n3.国庆节：9月30日-10月8日。\n4.元旦：12月30日-1月1日</string>
 </resources>

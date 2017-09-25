@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -39,11 +40,10 @@ public class AtyMessage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(R.layout.aty_message);
 
         Intent i = getIntent();
-//        id = i.getStringExtra(Config.KEY_ID);
-//        token = i.getStringExtra(Config.KEY_TOKEN);
 
         ListView lvMessage = (ListView) findViewById(R.id.lvMessage);
         edtSend = (EditText) findViewById(R.id.edtSend);

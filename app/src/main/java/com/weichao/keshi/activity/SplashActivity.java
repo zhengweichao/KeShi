@@ -1,24 +1,27 @@
 package com.weichao.keshi.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.weichao.keshi.R;
 
-import cn.smssdk.SMSSDK;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 
+/**
+ * 闪屏页面
+ */
 public class SplashActivity extends BaseActivity {
+    private Intent intent;
     private Button btn_splash_jump;
     private CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            Log.e("zwc", "onTick: "+ millisUntilFinished);
-            btn_splash_jump.setText("跳过(" + millisUntilFinished/ 1000 + "s)");
+            Log.e("zwc", "onTick: " + millisUntilFinished);
+            btn_splash_jump.setText("跳过(" + millisUntilFinished / 1000 + "s)");
         }
 
         @Override
@@ -30,21 +33,23 @@ public class SplashActivity extends BaseActivity {
 
     private void goLoginActivity() {
         //直接跳转主页面
-        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+        BmobUser user = BmobUser.getCurrentUser();
+        if (user == null) {
+            intent = new Intent(SplashActivity.this, LoginActivity.class);
+        } else {
+            intent = new Intent(SplashActivity.this, HomeActivity.class);
+        }
+        //直接跳转主页面
         startActivity(intent);
         finish();
     }
 
 
     @Override
-    int getLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_splash;
     }
 
-    @Override
-    Activity getmActivity() {
-        return SplashActivity.this;
-    }
 
     @Override
     void initView() {
@@ -55,6 +60,9 @@ public class SplashActivity extends BaseActivity {
     void initData() {
         btn_splash_jump.setVisibility(View.VISIBLE);
         countDownTimer.start();
+
+        //第一：默认初始化
+        Bmob.initialize(this, "7de3a2c669418b3957557a6f519afc3e");
     }
 
     @Override
@@ -68,13 +76,4 @@ public class SplashActivity extends BaseActivity {
         });
     }
 
-    @Override
-    void processClick(View v) {
-
-    }
-
-    @Override
-    protected void BarRightClick() {
-
-    }
 }

@@ -14,16 +14,17 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.weichao.keshi.R;
-import com.weichao.keshi.activity.AtyMessage;
-import com.weichao.keshi.activity.AtySetting;
-import com.weichao.keshi.activity.LoseFindActivity;
-import com.weichao.keshi.activity.NumNoteActivity;
+import com.weichao.keshi.activity.ClassActivity;
+import com.weichao.keshi.activity.ContactsActivity;
+import com.weichao.keshi.activity.MainActivity;
 import com.weichao.keshi.activity.RecyclerActivity;
-import com.weichao.keshi.activity.SchoolDateActivity;
 import com.weichao.keshi.activity.StudentActivity;
 import com.weichao.keshi.activity.WebGuideActivity;
+import com.weichao.keshi.activity.XiaoliActivity;
 import com.weichao.keshi.adapter.MoudleAdapter;
 import com.weichao.keshi.bean.MoudleItem;
+import com.weichao.keshi.cootab.BuyActivity;
+import com.weichao.keshi.cootab.LoseActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
@@ -47,18 +48,18 @@ public class HomeFragment extends BaseFragment {
     Integer[] imageses={R.mipmap.keshi1,R.mipmap.keshi2,R.mipmap.keshi3,R.mipmap.keshi4};
 
     //模块名字
-    String[] MoudleName = {"失物招领","二手交易","表白墙",
-            "校园新闻","通知公告","校历",
-            "网址导航","校园通讯录","兴趣圈"
+    String[] MoudleName = {"失物招领","二手交易","学生信息查询",
+            "图说校园","意见建议","校历",
+            "网址导航","校园通讯录","考前复习"
     };
     //模块图片资源
-    int[] MoudleLogo={R.mipmap.lose,R.mipmap.buysale,R.mipmap.loveshow,
-            R.mipmap.news,R.mipmap.tellall,R.mipmap.schooldate,
-            R.mipmap.schoolguide,R.mipmap.numbernote,R.mipmap.friends};
+    int[] MoudleLogo={R.mipmap.ic_home_lose,R.mipmap.ic_home_buysale,R.mipmap.ic_home_loveshow,
+            R.mipmap.ic_home_news,R.mipmap.ic_home_tellall,R.mipmap.ic_home_schooldate,
+            R.mipmap.ic_home_schoolguide,R.mipmap.ic_home_numbernote,R.mipmap.ic_home_friends};
     //模块对应页面
-    Class[] clazz={LoseFindActivity.class,WebGuideActivity.class,StudentActivity.class,
-            RecyclerActivity.class,AtyMessage.class,SchoolDateActivity.class,
-            WebGuideActivity.class,NumNoteActivity.class,LoseFindActivity.class,
+    Class[] clazz={LoseActivity.class,BuyActivity.class,StudentActivity.class,
+            RecyclerActivity.class,ContactsActivity.class,XiaoliActivity.class,
+            WebGuideActivity.class,ContactsActivity.class,MainActivity.class,
     };
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
@@ -68,8 +69,10 @@ public class HomeFragment extends BaseFragment {
         //找控件
         mRecyclerView = (RecyclerView) inflate.findViewById(R.id.rv_main);
         banner = (Banner) inflate.findViewById(R.id.banner);
+
         //设置布局管理器
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
+
         //添加分割线
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));

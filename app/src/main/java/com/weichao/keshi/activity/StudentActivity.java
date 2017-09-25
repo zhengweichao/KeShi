@@ -35,7 +35,7 @@ public class StudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stu_main);
-//        initDB("stu.db");
+
         InitDBUtils.initDB("stu.db",StudentActivity.this);
         initViews();
 
@@ -84,6 +84,7 @@ public class StudentActivity extends AppCompatActivity {
                 intent.putExtra("zhuanye", student.getZhuanye());
                 intent.putExtra("stu_no", student.getStu_no());
                 intent.putExtra("xuezhi", student.getXuezhi());
+                intent.putExtra("kaohao", student.getKaohao());
                 Log.e(TAG, "onItemClick: ok"+student.getXuezhi());
 
                 startActivityForResult(intent, 0);

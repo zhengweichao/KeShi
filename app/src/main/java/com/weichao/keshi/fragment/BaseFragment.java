@@ -54,18 +54,4 @@ public abstract  class BaseFragment extends Fragment {
      */
     public  abstract void initListener();
 
-    /**
-     * 吐司
-     */
-    public void showToast(String msg){
-        Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * log
-     */
-    public void LogE(String msg){
-        Log.e("zwc", "LogE: "+msg);;
-    }
-
 }

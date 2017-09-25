@@ -3,15 +3,24 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--<color name="colorPrimary">#F16C4D</color>-->
+    <!--<color name="colorPrimaryDark">#d65f43</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+
+    <color name="HomeColor">#F16C4D</color>
+    <color name="transparent">#0000</color>
 
     <color name="start1">#fbaa47</color>
     <color name="start2">#eb5559</color>
     <color name="start3">#459efb</color>
     <color name="start4">#8ac44a</color>
 
-    <color name="primary">#2ca839</color>
-    <color name="primary_dark">#21932d</color>
-    <color name="primary_darker">#1b8e27</color>
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="primary_darker">#1f2e8e</color>
+    <!--<color name="primary">#2ca839</color>-->
+    <!--<color name="primary_dark">#21932d</color>-->
+    <!--<color name="primary_darker">#1b8e27</color>-->
     <color name="accent">#FFFFFF</color>
 
     <color name="black">#000000</color>
@@ -23,4 +32,6 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+    <color name="black_deep">#000</color>
+    <color name="gray">#ff898989</color>
 </resources>

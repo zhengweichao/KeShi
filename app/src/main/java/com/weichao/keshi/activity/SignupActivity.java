@@ -1,8 +1,8 @@
 package com.weichao.keshi.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,60 +10,50 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.weichao.keshi.CONFIG;
-import com.weichao.keshi.R;
 
-import okhttp3.Call;
-import okhttp3.Response;
+import com.weichao.keshi.R;
+import com.weichao.keshi.bean.MyUser;
+import com.weichao.keshi.utils.LogUtils;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import cn.bmob.v3.BmobSMS;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
- * @ 创建时间: 2017/6/13 on 16:10.
- * @ 描述：注册页面
- * @ 作者: 郑卫超 QQ: 2318723605
+ * 注册页面
  */
 public class SignupActivity extends BaseActivity {
+    private static final String TAG = "SignupActivity";
 
+    @Bind(R.id.input_name)
     EditText _nameText;
-    EditText _emailText;
+    @Bind(R.id.input_mobile)
+    EditText _mobileText;
+    @Bind(R.id.et_password)
     EditText _passwordText;
+    @Bind(R.id.input_reEnterPassword)
     EditText _reEnterPasswordText;
+    @Bind(R.id.btn_signup)
     Button _signupButton;
+    @Bind(R.id.link_login)
     TextView _loginLink;
+    @Bind(R.id.input_yanzheng)
+    EditText inputYanzheng;
+    @Bind(R.id.btn_getcode)
+    Button btnGetcode;
 
     @Override
-    int getLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_signup;
     }
 
     @Override
-    Activity getmActivity() {
-        return null;
-    }
-
-    @Override
-    void initView() {
-        //根据id找控件
-        _nameText = (EditText) findViewById(R.id.input_name);
-        _emailText = (EditText) findViewById(R.id.input_username);
-        _passwordText = (EditText) findViewById(R.id.input_password);
-        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
-        _signupButton = (Button) findViewById(R.id.btn_signup);
-        _loginLink = (TextView) findViewById(R.id.link_login);
+    void initListener() {
         _signupButton.setOnClickListener(this);
         _loginLink.setOnClickListener(this);
-    }
-
-    @Override
-    void initData() {
-
-    }
-
-    @Override
-    void initListener() {
-
     }
 
     @Override
@@ -73,7 +63,6 @@ public class SignupActivity extends BaseActivity {
                 signup();
                 break;
             case R.id.link_login:
-                //点击登录连接，跳转到登录页面
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -84,60 +73,56 @@ public class SignupActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void BarRightClick() {
-
-    }
-
     public void signup() {
-        //判断是否合法
+        Log.d(TAG, "Signup");
+
+        String code = inputYanzheng.getText().toString();
         if (!validate()) {
-            onSignupFailed(0);
+            onSignupFailed();
             return;
         }
-        /*_signupButton.setEnabled(false);
+        if (code.isEmpty()) {
+            inputYanzheng.setError("请输入验证码");
+            return;
+        } else {
+            inputYanzheng.setError(null);
+        }
 
-        //显示圆形进度条对话框
+        _signupButton.setEnabled(false);
+
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("创建账号...");
         progressDialog.show();
-        //获取数据
+
         String username = _nameText.getText().toString();
+        String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
-//      联网获取数据
-        OkGo.get(CONFIG.URL_SIGNUP)
-                .params("username", username)
-                .params("password", password)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(String s, Call call, Response response) {
-                        Gson gson = new Gson();
-                        JsonSignupBean jsonSignupBean = gson.fromJson(s, JsonSignupBean.class);
-                        //如果得到返回消息为ok,则注册成功。
-                        if (jsonSignupBean.getMsg().equals("ok")) {
-                            Log.e("zwc", "onSuccess: 注册成功");
-                            onSignupSuccess();
-                            //对话框消失
-                            progressDialog.dismiss();
-                        } else {
-                            onSignupFailed(1);
-                            progressDialog.dismiss();
-                        }
-                    }
-                });*/
-    }
 
-    /**
-     * 登陆成功
-     */
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
+        MyUser bu = new MyUser();
+        bu.setUsername(username);
+        bu.setPassword(password);
+        bu.setMobilePhoneNumber(mobile);
+        bu.signOrLogin(code, new SaveListener<MyUser>() {
+            @Override
+            public void done(MyUser user, BmobException e) {
+                if (e == null) {
+                    LogUtils.e("注册成功" + user.getUsername() + "-" + user.getMobilePhoneNumber() + "-" + user.getObjectId());
+                    onSignupSuccess();
+                    //对话框消失
+                    progressDialog.dismiss();
+                } else {
+                    LogUtils.e("注册失败" + e.getMessage());
+                    onSignupFailed(1);
+                    progressDialog.dismiss();
+                }
 
-        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+            }
+
+        });
+
+
     }
 
     /**
@@ -153,36 +138,102 @@ public class SignupActivity extends BaseActivity {
         _signupButton.setEnabled(true);
     }
 
-    /**
-     * @return 输入内容是否合法
-     */
+    public void onSignupSuccess() {
+        _signupButton.setEnabled(true);
+        setResult(RESULT_OK, null);
+
+        Toast.makeText(SignupActivity.this, "注册成功，已自动登录", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+        startActivity(intent);
+
+        finish();
+    }
+
+    public void onSignupFailed() {
+        Toast.makeText(getBaseContext(), "注册失败", Toast.LENGTH_LONG).show();
+
+        _signupButton.setEnabled(true);
+    }
+
     public boolean validate() {
         boolean valid = true;
-//      从控件中获取数据
+
         String name = _nameText.getText().toString();
+        String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
-        //检测账号是否正确
+        String code = inputYanzheng.getText().toString();
+
         if (name.isEmpty()) {
-            _nameText.setError("账号不能为空");
+            _nameText.setError("请输入用户名");
             valid = false;
         } else {
             _nameText.setError(null);
         }
-        //检测密码是否正确
+
+        if (mobile.isEmpty()) {
+            _mobileText.setError("请输入有效的手机号");
+            valid = false;
+        } else {
+            _mobileText.setError(null);
+        }
+
         if (password.isEmpty()) {
-            _passwordText.setError("请输入密码");
+            _passwordText.setError("请输入有效的密码");
             valid = false;
         } else {
             _passwordText.setError(null);
         }
-        //检测重复密码是否正确
+
+
         if (reEnterPassword.isEmpty() || !(reEnterPassword.equals(password))) {
-            _reEnterPasswordText.setError("两次密码不一致");
+            _reEnterPasswordText.setError("两次密码输入不一致");
             valid = false;
         } else {
             _reEnterPasswordText.setError(null);
         }
+
         return valid;
+    }
+
+    private CountDownTimer countDownTimer = new CountDownTimer(6800, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            btnGetcode.setText(millisUntilFinished / 1000 + "秒后可以重新获取");
+        }
+
+        @Override
+        public void onFinish() {
+            btnGetcode.setText("获取验证码");
+            btnGetcode.setEnabled(true);
+        }
+    };
+
+    @OnClick(R.id.btn_getcode)
+    public void onViewClicked() {
+        btnGetcode.setEnabled(false);
+        if (!validate()) {
+            Toast.makeText(this, "信息不完善！", Toast.LENGTH_SHORT).show();
+            btnGetcode.setEnabled(true);
+            return;
+        }
+        countDownTimer.start();
+        String username = _nameText.getText().toString();
+        String mobile = _mobileText.getText().toString();
+        String password = _passwordText.getText().toString();
+
+        // TODO: 2017/9/7 获取验证码
+        BmobSMS.requestSMSCode(mobile, "keshi", new QueryListener<Integer>() {
+            @Override
+            public void done(Integer smsId, BmobException ex) {
+                if (ex == null) {//验证码发送成功
+                    LogUtils.e("验证码发送成功,短信id：" + smsId);//用于查询本次短信发送详情
+                    Toast.makeText(SignupActivity.this, "验证码已发送，请注意查收", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 }

@@ -11,8 +11,6 @@ import java.util.Date;
 
 public class TimeUtil {
 
-
-
     public static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final SimpleDateFormat DATE_FORMAT_DATE = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -67,5 +65,17 @@ public class TimeUtil {
     public static String getCurrentTimeInString(SimpleDateFormat dateFormat) {
         return getTime(getCurrentTimeInLong(), dateFormat);
     }
+    public static String getYear() {
+        return getTime(getCurrentTimeInLong(), new SimpleDateFormat("yyyy"));
+    }
+    public static String getMonth() {
+        return getTime(getCurrentTimeInLong(), new SimpleDateFormat("MM"));
+    }
+    public static String getDate() {
+        return getTime(getCurrentTimeInLong(), new SimpleDateFormat("dd"));
+    }
+
+
+
 }
 
