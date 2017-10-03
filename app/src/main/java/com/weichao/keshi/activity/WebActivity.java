@@ -1,9 +1,6 @@
 package com.weichao.keshi.activity;
 
-import android.app.Activity;
 import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -15,9 +12,13 @@ import android.widget.Toast;
 import com.weichao.keshi.R;
 import com.weichao.keshi.utils.LogUtils;
 
+import butterknife.Bind;
+
 public class WebActivity extends BaseActivity {
 
-    private WebView wv;
+    @Bind(R.id.wv)
+    WebView wv;
+    private String url;
 
     @Override
     protected int getLayoutId() {
@@ -25,13 +26,8 @@ public class WebActivity extends BaseActivity {
     }
 
     @Override
-    void initView() {
-        wv = (WebView) findViewById(R.id.wv);
-    }
-
-    @Override
     void initData() {
-        String url = (String) getIntent().getExtras().get("url");
+        url = getIntent().getStringExtra("url");
         MyWebViewClient myWebViewClient = new MyWebViewClient();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             wv.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
@@ -50,7 +46,6 @@ public class WebActivity extends BaseActivity {
         wv.setWebChromeClient(new WebChromeClient());
         wv.setWebViewClient(myWebViewClient);
         wv.loadUrl(url);
-//        wv.loadUrl("javascript:alert('aaa')");
     }
 
     @Override
@@ -58,10 +53,6 @@ public class WebActivity extends BaseActivity {
 
     }
 
-    @Override
-    void processClick(View v) {
-
-    }
 
     private class MyWebViewClient extends WebViewClient {
         //重写父类方法，让新打开的网页在当前的WebView中显示
@@ -83,7 +74,9 @@ public class WebActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
 
-        if (keyCode == KeyEvent.KEYCODE_BACK && wv.canGoBack()) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && url.contains("map.qq.com")) {
+            onBackPressed();
+        } else if (keyCode == KeyEvent.KEYCODE_BACK && wv.canGoBack()) {
             LogUtils.e("回退ing……");
             wv.goBack();
             return true;

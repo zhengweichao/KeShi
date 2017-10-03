@@ -7,7 +7,6 @@ package com.weichao.keshi.adapter;
  */
 
 import android.content.Context;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.weichao.keshi.R;
-import com.weichao.keshi.bean.ContactBean;
+import com.weichao.keshi.bean.Teacher;
 import com.weichao.keshi.utils.ColorGenerator;
 import com.weichao.keshi.utils.TextDrawable;
 
@@ -29,7 +28,7 @@ import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycleHolder> implements View.OnClickListener {
 
-    private List<ContactBean> contactBeanList;
+    private List<Teacher> contactBeanList;
     private Context mContext;
     // declare the color generator and drawable builder
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
@@ -40,7 +39,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycl
         contactBeanList = new ArrayList<>();
     }
 
-    public void addAll(List<ContactBean> beans) {
+    public void addAll(List<Teacher> beans) {
         if (contactBeanList.size() > 0) {
             contactBeanList.clear();
         }
@@ -48,12 +47,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycl
         notifyDataSetChanged();
     }
 
-    public void add(ContactBean bean, int position) {
+    public void add(Teacher bean, int position) {
         contactBeanList.add(position, bean);
         notifyItemInserted(position);
     }
 
-    public void add(ContactBean bean) {
+    public void add(Teacher bean) {
         contactBeanList.add(bean);
         notifyItemChanged(contactBeanList.size() - 1);
     }
@@ -73,7 +72,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycl
         holder.itemView.setTag(position);
         if (contactBeanList == null || contactBeanList.size() == 0 || contactBeanList.size() <= position)
             return;
-        ContactBean bean = contactBeanList.get(position);
+        Teacher bean = contactBeanList.get(position);
         if (bean != null) {
             holder.tv_name.setText(bean.getName());
             TextDrawable drawable = mDrawableBuilder.build(String.valueOf(bean.getName().charAt(0)), mColorGenerator.getColor(bean.getName()));

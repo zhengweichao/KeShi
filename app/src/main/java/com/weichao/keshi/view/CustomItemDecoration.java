@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.weichao.keshi.bean.ContactBean;
+import com.weichao.keshi.bean.Teacher;
 import com.weichao.keshi.utils.ColorUtil;
 import com.weichao.keshi.utils.DpUtil;
 
@@ -26,13 +26,13 @@ import java.util.List;
 public class CustomItemDecoration extends RecyclerView.ItemDecoration{
 
     private Paint mPaint;
-    private List<ContactBean> mBeans;
+    private List<Teacher> mBeans;
     private static final int dividerHeight = 80;
     private Context mContext;
     private final Rect mBounds = new Rect();
     private String tagsStr;
 
-    public void setDatas(List<ContactBean> mBeans, String tagsStr) {
+    public void setDatas(List<Teacher> mBeans, String tagsStr) {
         this.mBeans = mBeans;
         this.tagsStr = tagsStr;
     }
@@ -82,7 +82,7 @@ public class CustomItemDecoration extends RecyclerView.ItemDecoration{
      * @param parent RecyclerView
      * @param child  ItemView
      */
-    private void drawTitleBar(Canvas canvas, RecyclerView parent, View child, ContactBean bean, int position) {
+    private void drawTitleBar(Canvas canvas, RecyclerView parent, View child, Teacher bean, int position) {
         final int left = 0;
         final int right = parent.getWidth();
         //返回一个包含Decoration和Margin在内的Rect

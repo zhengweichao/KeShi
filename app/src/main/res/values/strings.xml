@@ -2,15 +2,11 @@
     <string name="app_name">科师有约</string>
     <string name="welcome_tips">您可以把意见或者建议发送给我，然后我会将消息反馈给学生会或者学校组织。</string>
 
-    <string-array name="reply_tips">
-        <item>发送成功，您可以点击右上角的调色板更换消息颜色哦~</item>
-        <item>消息已经发送给您的设备芯居。</item>
-        <item>已经发送了，芯居还可以更换颜色哦，点击右上角试一下~</item>
-        <item>点击右上角换个颜色换个心情吧~</item>
-        <item>芯居很高兴为您服务~</item>
-    </string-array>
-    <string name="title_activity_settings">Settings</string>
 
+    <string name="title_activity_settings">Settings</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -96,4 +92,5 @@
     <string name="contacts">校园通讯录</string>
     <string name="xiaoli_tip">在校生返校时间：2017年8月26日、27日\n在校生上课时间：2017年8月28日\n新生报到时间：2017年9月13日\n新生入学教育以及军训：2017年9月14-9月24日。\n新生上课时间：2017年9月25日（第五周）\n节假日：与国家基本法定规定时间一致。\n创新创业活动周以及考试周：第10周10月30日-11月5日</string>
     <string name="xiaoli_tip0">1.寒假：2018年1月22日-3月4日。\n2.中秋节：10月4日中秋节放假。\n3.国庆节：9月30日-10月8日。\n4.元旦：12月30日-1月1日</string>
+    <string name="stu_no_tips">学号</string>
 </resources>

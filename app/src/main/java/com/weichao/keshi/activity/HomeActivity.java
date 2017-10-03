@@ -5,10 +5,9 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.weichao.keshi.R;
-import com.weichao.keshi.fragment.HomeFragment;
-import com.weichao.keshi.fragment.TabFragment2;
-import com.weichao.keshi.fragment.TabFragment3;
-import com.weichao.keshi.fragment.TabFragment4;
+import com.weichao.keshi.fragment.TabHomeFragment;
+import com.weichao.keshi.fragment.TabMyFragment;
+import com.weichao.keshi.fragment.TabNewsFragment;
 import com.weichao.keshi.view.BottomTabView;
 
 import java.util.ArrayList;
@@ -37,9 +36,9 @@ public class HomeActivity extends BottomTabBaseActivity {
     @Override
     protected List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new HomeFragment());
-        fragments.add(new TabFragment4());
-        fragments.add(new TabFragment3());
+        fragments.add(new TabHomeFragment());
+        fragments.add(new TabNewsFragment());
+        fragments.add(new TabMyFragment());
         return fragments;
     }
 

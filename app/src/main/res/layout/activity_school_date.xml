@@ -10,7 +10,6 @@
         android:id="@+id/agenda_calendar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         agendaCalendar:agendaCurrentDayTextColor="@color/theme_primary"
         agendaCalendar:calendarColor="@color/theme_primary"
         agendaCalendar:calendarCurrentDayTextColor="@color/calendar_text_current_day"

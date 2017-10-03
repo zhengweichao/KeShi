@@ -57,7 +57,7 @@ public class SchoolDateActivity extends BaseActivity implements CalendarPickerCo
         Calendar endTime2 = Calendar.getInstance();
         endTime2.add(Calendar.DAY_OF_YEAR, 3);
         BaseCalendarEvent event2 = new BaseCalendarEvent("Visit to Dalvík", "A beautiful small town", "Dalvík", ContextCompat.getColor(this, R.color.blue_selected), startTime2, endTime2, true);
-        eventList.add(event2); // Example on how to provide your own layout Calendar startTime3 = Calendar.getInstance(); Calendar endTime3 = Calendar.getInstance(); startTime3.set(Calendar.HOUR_OF_DAY, 14); startTime3.set(Calendar.MINUTE, 0); endTime3.set(Calendar.HOUR_OF_DAY, 15); endTime3.set(Calendar.MINUTE, 0); DrawableCalendarEvent event3 = new DrawableCalendarEvent("Visit of Harpa", "", "Dalvík", ContextCompat.getColor(this, R.color.blue_dark), startTime3, endTime3, false, R.drawable.common_ic_googleplayservices); eventList.add(event3); }
+        eventList.add(event2); // Example on how to provide your own layout Calendar startTime3 = Calendar.getInstance(); Calendar endTime3 = Calendar.getInstance(); startTime3.set(Calendar.HOUR_OF_DAY, 14); startTime3.set(Calendar.MINUTE, 0); endTime3.set(Calendar.HOUR_OF_DAY, 15); endTime3.set(Calendar.MINUTE, 0); DrawableCalendarEvent event3 = new DrawableCalendarEvent("Visit of Harpa", "", "Dalvík", ContextCompat.getColor(this, R.color.blue_dark), startTime3, endTime3, false, R.drawable.common_ic_googleplayservices); eventList.TestAdd(event3); }
     }
 
     @Override

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <!--<color name="colorPrimary">#2c65a8</color>-->
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <!--<color name="colorPrimary">#F16C4D</color>-->
     <!--<color name="colorPrimaryDark">#d65f43</color>-->
     <!--<color name="colorAccent">#FF4081</color>-->
+    <color name="blue">#33b5e5</color>
+    <color name="themeMemorandum">#ff9933</color>
 
     <color name="HomeColor">#F16C4D</color>
     <color name="transparent">#0000</color>
@@ -14,6 +17,8 @@
     <color name="start2">#eb5559</color>
     <color name="start3">#459efb</color>
     <color name="start4">#8ac44a</color>
+
+    <color name="bt_pre">#fc5902</color>
 
     <color name="primary">#3F51B5</color>
     <color name="primary_dark">#303F9F</color>
@@ -34,4 +39,6 @@
     <color name="white">#FFFFFF</color>
     <color name="black_deep">#000</color>
     <color name="gray">#ff898989</color>
+    <color name="yellow">#fdd210</color>
+    <color name="orange">#f7840f</color>
 </resources>

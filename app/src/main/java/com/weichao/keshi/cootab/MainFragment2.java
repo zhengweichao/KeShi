@@ -1,23 +1,31 @@
 package com.weichao.keshi.cootab;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.weichao.keshi.R;
+import com.weichao.keshi.activity.NewsWebActivity;
 import com.weichao.keshi.adapter.NNNAdapter;
-import com.weichao.keshi.bean.NewsBean1;
-import com.weichao.keshi.bean.NewsBean2;
-import com.weichao.keshi.bean.NewsBean3;
+import com.weichao.keshi.bean.NewsBean;
+import com.weichao.keshi.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import xyz.zpayh.adapter.IMultiItem;
+import xyz.zpayh.adapter.OnItemClickListener;
 
 /**
  * Created by hugeterry(http://hugeterry.cn)
@@ -30,6 +38,8 @@ public class MainFragment2 extends Fragment {
     private List<String> mDatas;
     private static final String ARG_TITLE = "title";
     private String mTitle;
+    private NNNAdapter nnnAdapter;
+    private ArrayList<NewsBean> newsBeen;
 
     public static MainFragment2 getInstance(String title) {
         MainFragment2 fra = new MainFragment2();
@@ -56,23 +66,48 @@ public class MainFragment2 extends Fragment {
     }
 
     protected void initData() {
-        NNNAdapter nnnAdapter = new NNNAdapter();
-        ArrayList<IMultiItem> newsBeen = new ArrayList<>();
-        NewsBean1 newsBean1 = new NewsBean1("习近平：坚持走中国特色社会主义社会治理之路", "新华社", "09-19");
-        NewsBean2 newsBean2 = new NewsBean2("习近平：坚持走中国特色社会主义社会治理之路", "新华社", "09-19", "2");
-        NewsBean3 newsBean3 = new NewsBean3("习近平：坚持走中国特色社会主义社会治理之路", "新华社", "09-19", "3", "", "");
-
-        newsBeen.add(newsBean1);
-        newsBeen.add(newsBean2);
-        newsBeen.add(newsBean3);
-
-        newsBeen.add(newsBean1);
-        newsBeen.add(newsBean2);
-        newsBeen.add(newsBean3);
-
-        nnnAdapter.setData(newsBeen);
+        nnnAdapter = new NNNAdapter();
+        newsBeen = new ArrayList<>();
+        BmobQuery<NewsBean> query = new BmobQuery<NewsBean>();
+        query.order("-time");
+        //返回6条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(10);
+        query.addWhereEqualTo("kind","a");
+        // 希望在查询帖子信息的同时也把发布人的信息查询出来
+        query.include("author");
+        //执行查询方法
+        query.findObjects(new FindListener<NewsBean>() {
+            @Override
+            public void done(List<NewsBean> object, BmobException e) {
+                if (e == null) {
+                    LogUtils.e("查询成功：共" + object.size() + "条数据。");
+                    for (NewsBean priceItem : object) {
+                        newsBeen.add(priceItem);
+                    }
+                    nnnAdapter.setData(newsBeen);
+                } else {
+                    LogUtils.e("失败：" + e.getMessage() + "," + e.getErrorCode());
+                }
+            }
+        });
 
         mRecyclerView.setAdapter(nnnAdapter);
     }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initListener();
+    }
 
+    private void initListener() {
+        nnnAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull View view, int position) {
+                LogUtils.e(newsBeen.get(position).getContent());
+                Intent intent = new Intent(getActivity(), NewsWebActivity.class);
+                intent.putExtra("url", newsBeen.get(position).getContent());
+                startActivity(intent);
+            }
+        });
+    }
 }

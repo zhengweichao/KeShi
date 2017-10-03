@@ -34,7 +34,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.LoseFindActivity" />
         <activity android:name=".activity.WebGuideActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.WebActivity" />
@@ -50,9 +49,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".cootab.BuyActivity"/>
+        <activity
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+        <activity android:name=".activity.BuyActivity" />
         <activity android:name=".activity.SchoolDateActivity" />
-        <activity android:name=".activity.AtyMessage" />
         <activity android:name=".activity.StudentActivity" />
         <activity android:name=".activity.StuDetailActivity" />
         <activity android:name=".activity.RecyclerActivity" />
@@ -60,7 +61,7 @@
         <activity android:name=".activity.AnswerActivity" />
         <activity android:name=".activity.GradeActivity" />
         <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".cootab.LoseActivity" />
+        <activity android:name=".activity.LoseActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.Dark" />
@@ -97,7 +98,18 @@
         <service android:name="cn.bmob.newim.core.service.ReConnectService" />
         <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
 
-        <activity android:name=".activity.XiaoliActivity"></activity>
+        <activity android:name=".activity.XiaoliActivity" />
+        <activity android:name=".activity.NewsWebActivity" />
+        <activity android:name=".activity.FeedbackActivity" />
+        <activity android:name=".activity.PushOKActivity" />
+        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.ComplaintsActivity" />
+        <activity android:name=".activity.ComplaintsDetailActivity" />
+        <activity android:name=".activity.LoseAddActivity" />
+        <activity android:name=".activity.LoseDetailActivity" />
+        <activity android:name=".activity.BuyAddActivity" />
+        <activity android:name=".activity.BuyDetailActivity" />
+        <activity android:name=".activity.TeamActivity"></activity>
     </application>
 
 </manifest>

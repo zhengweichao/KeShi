@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.stephentuso.welcome.WelcomeHelper;
 import com.weichao.keshi.R;
+import com.weichao.keshi.utils.LightStatusBarUtils;
 import com.weichao.keshi.view.BottomTabView;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public abstract class BottomTabBaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         setContentView(R.layout.activity_base_bottom_tab);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -71,10 +73,10 @@ public abstract class BottomTabBaseActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 1) {
-                    findViewById(R.id.layout_title).setVisibility(View.GONE);
+                if (position == 2) {
+                    LightStatusBarUtils.setLightStatusBar(BottomTabBaseActivity.this, true);
                 } else {
-                    findViewById(R.id.layout_title).setVisibility(View.VISIBLE);
+                    LightStatusBarUtils.setLightStatusBar(BottomTabBaseActivity.this, false);
                 }
             }
 

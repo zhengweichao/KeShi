@@ -1,6 +1,9 @@
 package com.weichao.keshi.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,24 +12,31 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.weichao.keshi.R;
+import com.weichao.keshi.activity.BuyDetailActivity;
 import com.weichao.keshi.adapter.NNNAdapter;
-import com.weichao.keshi.bean.NewsBean1;
-import com.weichao.keshi.bean.NewsBean2;
-import com.weichao.keshi.cootab.RecyclerAdapter;
+import com.weichao.keshi.bean.BuyItem;
+import com.weichao.keshi.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.zpayh.adapter.IMultiItem;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import xyz.zpayh.adapter.OnItemClickListener;
 
 
+/**
+ * 二手交易 - 买
+ */
 public class BuyFragment2 extends Fragment {
     private RecyclerView mRecyclerView;
-    private RecyclerAdapter mAdapter;
 
     private List<String> mDatas;
     private static final String ARG_TITLE = "title";
     private String mTitle;
+    private ArrayList<BuyItem> buyBeen;
+    private NNNAdapter mAdapter;
 
     public static BuyFragment2 getInstance(String title) {
         BuyFragment2 fra = new BuyFragment2();
@@ -53,20 +63,45 @@ public class BuyFragment2 extends Fragment {
     }
 
     protected void initData() {
-        NNNAdapter nnnAdapter = new NNNAdapter();
-        ArrayList<IMultiItem> newsBeen = new ArrayList<>();
-        NewsBean1 newsBean1 = new NewsBean1("习近平：坚持走中国特色社会主义社会治理之路", "新华社", "09-19");
-        NewsBean2 newsBean2 = new NewsBean2("习近平：坚持走中国特色社会主义社会治理之路", "新华社", "09-19", "2");
+        mAdapter = new NNNAdapter();
+        buyBeen = new ArrayList<>();
+        BmobQuery<BuyItem> query = new BmobQuery<BuyItem>();
+        query.order("-createdAt");
+        //返回6条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(15);
+        //执行查询方法
+        query.findObjects(new FindListener<BuyItem>() {
+            @Override
+            public void done(List<BuyItem> object, BmobException e) {
+                if (e == null) {
+                    LogUtils.e("查询成功：共" + object.size() + "条数据。");
+                    for (BuyItem loseItem : object) {
+                        buyBeen.add(loseItem);
+                        LogUtils.e(loseItem.getAuthor());
+                    }
+                    mAdapter.setData(buyBeen);
+                } else {
+                    LogUtils.e("失败：" + e.getMessage() + "," + e.getErrorCode());
+                }
+            }
+        });
 
-        newsBeen.add(newsBean1);
-        newsBeen.add(newsBean2);
-
-        newsBeen.add(newsBean1);
-        newsBeen.add(newsBean2);
-
-        nnnAdapter.setData(newsBeen);
-
-        mRecyclerView.setAdapter(nnnAdapter);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initListener();
     }
 
+    private void initListener() {
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull View view, int position) {
+                Intent intent = new Intent(getActivity(), BuyDetailActivity.class);
+                intent.putExtra("buybean", buyBeen.get(position));
+                startActivity(intent);
+            }
+        });
+    }
 }

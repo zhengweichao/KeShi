@@ -1,6 +1,9 @@
 package com.weichao.keshi.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,21 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.weichao.keshi.R;
+import com.weichao.keshi.activity.LoseDetailActivity;
 import com.weichao.keshi.adapter.NNNAdapter;
-import com.weichao.keshi.bean.NewsBean1;
-import com.weichao.keshi.bean.NewsBean2;
-import com.weichao.keshi.bean.NewsBean3;
+import com.weichao.keshi.bean.FindItem;
+import com.weichao.keshi.bean.LoseItem;
+
 import com.weichao.keshi.cootab.RecyclerAdapter;
+import com.weichao.keshi.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import xyz.zpayh.adapter.IMultiItem;
+import xyz.zpayh.adapter.OnItemClickListener;
 
-/**
- * Created by hugeterry(http://hugeterry.cn)
- * Date: 17/1/28 17:36
- */
 public class LoseFragment2 extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mAdapter;
@@ -31,6 +36,8 @@ public class LoseFragment2 extends Fragment {
     private List<String> mDatas;
     private static final String ARG_TITLE = "title";
     private String mTitle;
+    private NNNAdapter findAdapter;
+    private ArrayList<FindItem> findBeen;
 
     public static LoseFragment2 getInstance(String title) {
         LoseFragment2 fra = new LoseFragment2();
@@ -57,20 +64,47 @@ public class LoseFragment2 extends Fragment {
     }
 
     protected void initData() {
-        NNNAdapter nnnAdapter = new NNNAdapter();
-        ArrayList<IMultiItem> newsBeen = new ArrayList<>();
-        NewsBean1 newsBean1 = new NewsBean1("习近平：坚持走中国特色社会主义社会治理之路", "新华社", "09-19");
-        NewsBean2 newsBean2 = new NewsBean2("习近平：坚持走中国特色社会主义社会治理之路", "新华社", "09-19", "2");
+        findAdapter = new NNNAdapter();
+        findBeen = new ArrayList<>();
+        BmobQuery<FindItem> query = new BmobQuery<FindItem>();
+        query.order("-time");
+        //返回6条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(10);
+        //执行查询方法
+        query.findObjects(new FindListener<FindItem>() {
+            @Override
+            public void done(List<FindItem> object, BmobException e) {
+                if (e == null) {
+                    LogUtils.e("查询成功：共" + object.size() + "条数据。");
+                    for (FindItem findItem : object) {
+                        findBeen.add(findItem);
+                        LogUtils.e(findItem.getAuthor());
+                    }
+                    findAdapter.setData(findBeen);
+                } else {
+                    LogUtils.e("失败：" + e.getMessage() + "," + e.getErrorCode());
+                }
+            }
+        });
 
-        newsBeen.add(newsBean1);
-        newsBeen.add(newsBean2);
+        mRecyclerView.setAdapter(findAdapter);
+    }
 
-        newsBeen.add(newsBean1);
-        newsBeen.add(newsBean2);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initListener();
+    }
 
-        nnnAdapter.setData(newsBeen);
-
-        mRecyclerView.setAdapter(nnnAdapter);
+    private void initListener() {
+        findAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull View view, int position) {
+                Intent intent = new Intent(getActivity(), LoseDetailActivity.class);
+                intent.putExtra("findbean", findBeen.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
 }

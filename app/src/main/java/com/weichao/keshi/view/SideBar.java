@@ -13,7 +13,7 @@ import com.weichao.keshi.utils.DpUtil;
 
 /**
  * @ 创建时间: 2017/9/18 on 22:32.
- * @ 描述：
+ * @ 描述：联系人快速定位导航条
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 
@@ -73,10 +73,11 @@ public class SideBar extends View {
         }
     }
 
-    private String indexStr = "ABCDEFGHIJKLMNOPQRSTUVWXY#";
+    private String indexStr = "CDFGSTWXYZ#";
 
     public void setIndexStr(String indexStr) {
         this.indexStr = indexStr;
+        invalidate();
     }
 
     @Override

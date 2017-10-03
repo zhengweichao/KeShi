@@ -12,6 +12,33 @@ import cn.bmob.v3.BmobUser;
 
 public class MyUser extends BmobUser implements Serializable {
     private String stuno;
+    private String sex;
+    private String yuan;
+    private String clazz;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getYuan() {
+        return yuan;
+    }
+
+    public void setYuan(String yuan) {
+        this.yuan = yuan;
+    }
+
+    public String getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
+    }
 
     public String getStuno() {
         return stuno;

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/radio_shape">
+    android:background="@drawable/radio_shape"
+    android:orientation="vertical">
 
-    <include layout="@layout/layout_title_bar_back"/>
+    <include layout="@layout/layout_title_bar_back" />
 
     <ImageView
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_gravity="center"
         android:layout_marginTop="48dp"
         android:background="@mipmap/ic_launcher" />
@@ -30,6 +29,14 @@
         android:text="V 1.0"
         android:textSize="15sp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="想要优质的校园生活？一个APP全帮你搞定！
+科师有约致力于打造便捷的校园生活，服务于广大学生群体，从学生自身的角度出发，尽可能多的考虑学生在校园生活中可能遇到的问题，为此我们目前涵盖了校内新闻查看、校园通讯录查询、失物招领、二手交易、图说校园、校历查询、网址导航、考前复习等功能，打造一款靠谱的校园生活APP。
+我们不断努力，让校园生活在你手中，让你的大学井然有序！"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textView4"
@@ -37,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
-        android:text="软件作者：郑卫超  武鑫\n                   王希雅  赵创"
-        android:textSize="21sp" />
+        android:text="软件作者：郑卫超 \n                    王希雅 \n                    武鑫 \n                    赵创 \n                    李伟\n"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView"
@@ -47,16 +54,25 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:text="指导老师：张志广老师"
-        android:textSize="21sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:text="Version 1.0.0"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="4dp"
         android:gravity="bottom"
-        android:text="科师有约-版权所有"
-        android:textSize="14sp" />
-
+        android:text="Copyright ©2017 KeShiYouYue All Right Reserved "
+        android:textSize="10sp" />
 </LinearLayout>
