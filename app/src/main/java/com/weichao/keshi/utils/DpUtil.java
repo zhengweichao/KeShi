@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 
 /**
  * @ 创建时间: 2017/9/18 on 22:29.
- * @ 描述：
+ * @ 描述：适配工具类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 

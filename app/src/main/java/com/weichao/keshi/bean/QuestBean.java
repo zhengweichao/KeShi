@@ -7,7 +7,7 @@ import org.greenrobot.greendao.annotation.NotNull;
 
 /**
  * @ 创建时间: 2017/6/13 on 17:12.
- * @ 描述：greenDao 学习，测试生成数据库
+ * @ 描述：greenDao 生成答题数据库（答题模块开发中……）
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 @Entity

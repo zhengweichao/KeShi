@@ -5,14 +5,12 @@ package com.weichao.keshi.bean;
  * @ 描述：登录jsonbean类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class JsonLoginBean {
 
     /**
      * username : 001
      * permission : 1
      */
-
     private String username;
     private int permission;
 

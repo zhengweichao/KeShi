@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.weichao.keshi.R;
 import com.weichao.keshi.utils.Util;
 
-
+/**
+ * 多行文本自动收起
+ */
 public class TextListAdapter extends RecyclerView.Adapter<TextListAdapter.TextHolder> {
     private Activity mContent;
 

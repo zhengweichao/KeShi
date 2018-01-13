@@ -4,10 +4,9 @@ import java.util.List;
 
 /**
  * @ 创建时间: 2017/10/2 on 15:34.
- * @ 描述：
+ * @ 描述：实名认证json Bean
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class JsonRealBean {
 
 

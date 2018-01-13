@@ -11,14 +11,13 @@ import android.widget.TextView;
 import com.weichao.keshi.R;
 import com.weichao.keshi.bean.QuestBean;
 import com.weichao.keshi.db.LoveDao;
-
+import com.weichao.keshi.utils.LogUtils;
 
 /**
  * @ 创建时间: 2017/6/11 on 16:25.
- * @ 描述： 答题fragment
+ * @ 描述： 答题fragment（答题开发中……）
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class AnswerFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener {
     private RadioButton rb_option_a;
     private RadioButton rb_option_b;
@@ -30,8 +29,7 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
     QuestBean questBean = null;
     private EditText et_answer;
 
-    public AnswerFragment(QuestBean questBean) {
-        this.questBean = questBean;
+    public AnswerFragment() {
     }
 
     @Override
@@ -39,10 +37,10 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
         View view = View.inflate(mActivity, R.layout.fragment_quest, null);
         tv_title = (TextView) view.findViewById(R.id._tv_title);
         rg_base = (RadioGroup) view.findViewById(R.id._rg_base);
-            Log.e("zwc", "initView: "+ questBean.getQ_type());
+        LogUtils.e("initView: " + questBean.getQ_type());
         //如果是选择题，找id,设置监听事件
-        if ("1".equals(questBean.getQ_type()+"")) {
-            Log.e("zwc", "initView: "+ questBean.getQ_type());
+        if ("1".equals(questBean.getQ_type() + "")) {
+            LogUtils.e("initView: " + questBean.getQ_type());
             rb_option_a = (RadioButton) view.findViewById(R.id._rb_option_a);
             rb_option_b = (RadioButton) view.findViewById(R.id._rb_option_b);
             rb_option_c = (RadioButton) view.findViewById(R.id._rb_option_c);
@@ -50,8 +48,8 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
             rg_base.setOnCheckedChangeListener(this);
         }
         //如果是判断题，找id,使C,D选项不可见，设置监听事件
-        else if ("2".equals(questBean.getQ_type()+"")) {
-            Log.e("zwc", "initView: "+ questBean.getQ_type());
+        else if ("2".equals(questBean.getQ_type() + "")) {
+            LogUtils.e("initView: " + questBean.getQ_type());
             rb_option_a = (RadioButton) view.findViewById(R.id._rb_option_a);
             rb_option_b = (RadioButton) view.findViewById(R.id._rb_option_b);
             rb_option_c = (RadioButton) view.findViewById(R.id._rb_option_c);
@@ -63,8 +61,8 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
             rg_base.setOnCheckedChangeListener(this);
         }
         //如果是简答题，找id,使选项组不可见，使EditText出现。
-        else if ("3".equals(questBean.getQ_type()+"")) {
-            Log.e("zwc", "initView: "+ questBean.getQ_type());
+        else if ("3".equals(questBean.getQ_type() + "")) {
+            LogUtils.e("initView: " + questBean.getQ_type());
             et_answer = (EditText) view.findViewById(R.id.et_answer);
             et_answer.setVisibility(View.VISIBLE);
             rg_base.setVisibility(View.GONE);
@@ -87,19 +85,19 @@ public class AnswerFragment extends BaseFragment implements RadioGroup.OnChecked
             return;
         }
 //        如果是选择题，对应选项赋值
-        if ("1".equals(questBean.getQ_type()+"")) {
+        if ("1".equals(questBean.getQ_type() + "")) {
             rb_option_a.setText("" + questBean.getOptionA());
             rb_option_b.setText("" + questBean.getOptionB());
             rb_option_c.setText("" + questBean.getOptionC());
             rb_option_d.setText("" + questBean.getOptionD());
         }
 //        如果是判断题，AB设置为对，错。
-        else if ("2".equals(questBean.getQ_type()+"")) {
+        else if ("2".equals(questBean.getQ_type() + "")) {
             rb_option_a.setText("对");
             rb_option_b.setText("错");
         }
 //        如果是简答题或者其他,不做数据填充
-        else{
+        else {
 
         }
     }

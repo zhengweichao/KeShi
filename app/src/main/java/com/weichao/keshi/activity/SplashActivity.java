@@ -12,12 +12,14 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 
 /**
- * 闪屏页面
+ * @ 创建时间: 2017/8/23 on 22:09.
+ * @ 描述：闪屏页面
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class SplashActivity extends BaseActivity {
     private Intent intent;
     private Button btn_splash_jump;
-    private CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
+    private CountDownTimer countDownTimer = new CountDownTimer(1100, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
             Log.e("zwc", "onTick: " + millisUntilFinished);
@@ -50,7 +52,6 @@ public class SplashActivity extends BaseActivity {
         return R.layout.activity_splash;
     }
 
-
     @Override
     void initView() {
         btn_splash_jump = (Button) findViewById(R.id.sp_jump_btn);
@@ -61,7 +62,7 @@ public class SplashActivity extends BaseActivity {
         btn_splash_jump.setVisibility(View.VISIBLE);
         countDownTimer.start();
 
-        //第一：默认初始化
+        //Bmob初始化
         Bmob.initialize(this, "7de3a2c669418b3957557a6f519afc3e");
     }
 

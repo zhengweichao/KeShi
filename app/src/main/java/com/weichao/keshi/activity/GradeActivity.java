@@ -1,6 +1,5 @@
 package com.weichao.keshi.activity;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,9 @@ import com.weichao.keshi.db.LoveDao;
 
 import java.util.ArrayList;
 
-
 /**
  * @ 创建时间: 2017/6/14 on 09:46.
- * @ 描述：分数界面
+ * @ 描述：分数界面（答题模块，尚未完成）
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class GradeActivity extends BaseActivity {

@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 /**
  * @ 创建时间: 2017/10/1 on 21:09.
- * @ 描述：判断当前系统ROM 工具类
+ * @ 描述：判断当前系统ROM 工具类(配合改变状态文字颜色)
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 
@@ -21,7 +21,7 @@ public class RomUtils {
         public static final int NA = 4;
     }
 
-    public static boolean isLightStatusBarAvailable () {
+    public static boolean isLightStatusBarAvailable() {
         if (isMIUIV6OrAbove() || isFlymeV4OrAbove() || isAndroidMOrAbove()) {
             return true;
         }
@@ -70,17 +70,28 @@ public class RomUtils {
                 if (miuiVersionCode >= 4) {
                     return true;
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
         return false;
     }
 
-    //Android Api 23以上
+    //Android Api 23以上 6.0
     private static boolean isAndroidMOrAbove() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 判断android SDK 版本是否大于等于5.0
+     * API  19
+     * @return
+     */
+    public static boolean isAndroid5() {
+
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     private static String getSystemProperty(String propName) {

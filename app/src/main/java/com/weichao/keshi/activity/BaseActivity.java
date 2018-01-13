@@ -17,25 +17,18 @@ import butterknife.ButterKnife;
  * @ 描述：Activity基类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener {
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //得到布局文件
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        //初始化View
+
         initView();
-
-        //初始化界面数据
         initData();
-
         registComBtn();
-
-        //绑定监听器与适配器
         initListener();
     }
 

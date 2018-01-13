@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
  * @ 描述： 状态栏文字颜色
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class LightStatusBarUtils {
     public static void setLightStatusBar(Activity activity, boolean dark) {
         switch (RomUtils.getLightStatausBarAvailableRomType()) {

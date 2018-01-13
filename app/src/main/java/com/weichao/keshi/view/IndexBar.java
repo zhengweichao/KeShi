@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import com.weichao.keshi.utils.ColorUtil;
 
 /**
- * @ 创建时间: 2017/9/18 on 22:49.
- * @ 描述：
+ * @ 创建时间: 2017/9/19 on 09:49.
+ * @ 描述：联系人索引
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 

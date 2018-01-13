@@ -19,6 +19,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.hugeterry.coordinatortablayout.CoordinatorTabLayout;
 
+/**
+ * @ 创建时间: 2017/10/3 on 10:03.
+ * @ 描述：失物招领页面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class LoseActivity extends AppCompatActivity {
     @Bind(R.id.coordinatortablayout)
     CoordinatorTabLayout mCoordinatorTabLayout;

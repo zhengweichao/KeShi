@@ -20,7 +20,7 @@ import xyz.zpayh.adapter.IMultiItem;
 
 /**
  * @ 创建时间: 2017/9/20 on 16:32.
- * @ 描述：
+ * @ 描述：新闻bean类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 

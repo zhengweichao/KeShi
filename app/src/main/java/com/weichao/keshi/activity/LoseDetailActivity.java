@@ -2,8 +2,6 @@ package com.weichao.keshi.activity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,14 +14,15 @@ import com.weichao.keshi.bean.FindItem;
 import com.weichao.keshi.bean.LoseItem;
 import com.weichao.keshi.utils.LogUtils;
 
-import java.io.Serializable;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @ 创建时间: 2017/10/3 on 16:03.
+ * @ 描述：失物招领详情页面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class LoseDetailActivity extends BaseActivity {
-
     @Bind(R.id.tv_detail_lose_title)
     TextView tvDetailLoseTitle;
     @Bind(R.id.tv_detail_lose_author)
@@ -50,7 +49,7 @@ public class LoseDetailActivity extends BaseActivity {
     void initView() {
         losebean = (LoseItem) getIntent().getSerializableExtra("losebean");
         findbean = (FindItem) getIntent().getSerializableExtra("findbean");
-        if(losebean!=null){
+        if (losebean != null) {
             tvDetailLoseTitle.setText(losebean.getTitle());
             tvDetailLoseAuthor.setText(losebean.getAuthor());
             tvDetailLoseTime.setText(losebean.getTime());
@@ -66,7 +65,7 @@ public class LoseDetailActivity extends BaseActivity {
                         .centerCrop()
                         .into(ivLoseDetail);
             }
-        }else{
+        } else {
             tvDetailLoseTitle.setText(findbean.getTitle());
             tvDetailLoseAuthor.setText(findbean.getAuthor());
             tvDetailLoseTime.setText(findbean.getTime());
@@ -83,30 +82,23 @@ public class LoseDetailActivity extends BaseActivity {
                         .into(ivLoseDetail);
             }
         }
-
-
-    }
-
-    @Override
-    void initData() {
-
     }
 
     @OnClick(R.id.bt_detail_lose_tel)
     public void onViewClicked() {
-        if (!(losebean==null)) {
+        if (!(losebean == null)) {
             LogUtils.e("TEL:" + losebean.getTel());
             //跳到拨号页面
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + losebean.getTel()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else if(!(findbean==null)){
+        } else if (!(findbean == null)) {
             LogUtils.e("TEL:" + findbean.getTel());
             //跳到拨号页面
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + findbean.getTel()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else{
+        } else {
             Toast.makeText(this, "该用户没有留下电话信息，请私信尝试", Toast.LENGTH_SHORT).show();
         }
     }

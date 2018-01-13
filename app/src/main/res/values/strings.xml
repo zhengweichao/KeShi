@@ -1,25 +1,17 @@
 <resources>
     <string name="app_name">科师有约</string>
     <string name="welcome_tips">您可以把意见或者建议发送给我，然后我会将消息反馈给学生会或者学校组织。</string>
-
-
     <string name="title_activity_settings">Settings</string>
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
     <string name="pref_header_general">General</string>
-
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact
         based on your message history
     </string>
-
     <string name="pref_title_display_name">Display name</string>
     <string name="pref_default_display_name">John Smith</string>
-
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
         <item>Always</item>
@@ -31,10 +23,7 @@
         <item>0</item>
         <item>-1</item>
     </string-array>
-
-    <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
-
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
         <item>15 minutes</item>

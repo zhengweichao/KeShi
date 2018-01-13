@@ -1,7 +1,10 @@
 package com.weichao.keshi.activity;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.weichao.keshi.R;
 import com.weichao.keshi.adapter.NNNAdapter;
@@ -15,7 +18,13 @@ import butterknife.Bind;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import xyz.zpayh.adapter.OnItemClickListener;
 
+/**
+ * @ 创建时间: 2017/10/4 on 22:09.
+ * @ 描述：组织社团页面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class TeamActivity extends BaseActivity {
 
     @Bind(R.id.rv_team)
@@ -26,12 +35,6 @@ public class TeamActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_team;
-    }
-
-    @Override
-    void initView() {
-
-
     }
 
     @Override
@@ -60,4 +63,16 @@ public class TeamActivity extends BaseActivity {
         rvTeam.setAdapter(mAdapter);
     }
 
+    @Override
+    void initListener() {
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull View view, int position) {
+                Intent intent = new Intent(TeamActivity.this, TeamDetailActivity.class);
+                intent.putExtra("teambean", teamBeen.get(position));
+                startActivity(intent);
+            }
+        });
+
+    }
 }

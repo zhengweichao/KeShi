@@ -16,8 +16,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:background="@mipmap/bg_ios" />
+            android:background="@mipmap/bg_xiaoli" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,11 +35,12 @@
             android:text="2017年09月22日"
             android:textColor="@color/white"
             android:textSize="30sp" />
+
         <TextView
             android:id="@+id/tv_date_today_nongli"
-            android:layout_below="@id/tv_date_today"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_date_today"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:text="八月初三"

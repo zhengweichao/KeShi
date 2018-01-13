@@ -13,7 +13,9 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- * glide图片加载
+ * @ 创建时间: 2017/8/21 on 19:39.
+ * @ 描述：Glide图片加载
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class GlideImageLoader implements Serializable {
 

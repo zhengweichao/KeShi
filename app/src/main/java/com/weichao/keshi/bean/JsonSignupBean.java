@@ -2,7 +2,7 @@ package com.weichao.keshi.bean;
 
 /**
  * @ 创建时间: 2017/6/15 on 18:32.
- * @ 描述：
+ * @ 描述：注册json
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 

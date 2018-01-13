@@ -19,9 +19,9 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.weichao.keshi.R;
 import com.weichao.keshi.adapter.ImagePickerAdapter;
-import com.weichao.keshi.bean.SaleItem;
 import com.weichao.keshi.bean.BuyItem;
 import com.weichao.keshi.bean.MyUser;
+import com.weichao.keshi.bean.SaleItem;
 import com.weichao.keshi.utils.GlideImageLoader0;
 import com.weichao.keshi.utils.LogUtils;
 import com.weichao.keshi.utils.ToastUtil;
@@ -132,7 +132,7 @@ public class BuyAddActivity extends BaseActivity implements ImagePickerAdapter.O
                 @Override
                 public void onSuccess(List<BmobFile> files, List<String> urls) {
 
-                    if ("我想出手".equals(BuyUnit)) {
+                    if (!"我想出手".equals(BuyUnit)) {
                         BuyItem bean = new BuyItem();
                         MyUser user = BmobUser.getCurrentUser(MyUser.class);
                         bean.setAuthor(user.getUsername());
@@ -201,7 +201,7 @@ public class BuyAddActivity extends BaseActivity implements ImagePickerAdapter.O
                 }
             });
         } else {
-            if ("我想出手".equals(BuyUnit)) {
+            if (!"我想出手".equals(BuyUnit)) {
                 BuyItem bean = new BuyItem();
                 MyUser user = BmobUser.getCurrentUser(MyUser.class);
                 bean.setAuthor(user.getUsername());
@@ -347,12 +347,8 @@ public class BuyAddActivity extends BaseActivity implements ImagePickerAdapter.O
                                 startActivityForResult(intent, REQUEST_CODE_SELECT);
                                 break;
                             case 1:
-                                //打开选择,本次允许选择的数量
                                 ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
                                 Intent intent1 = new Intent(BuyAddActivity.this, ImageGridActivity.class);
-                                /* 如果需要进入选择的时候显示已经选中的图片，
-                                 * 详情请查看ImagePickerActivity
-                                 * */
                                 intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES, images);
                                 startActivityForResult(intent1, REQUEST_CODE_SELECT);
                                 break;

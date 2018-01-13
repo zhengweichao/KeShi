@@ -47,12 +47,13 @@ public class BuyDetailActivity extends BaseActivity {
     void initView() {
         Buybean = (BuyItem) getIntent().getSerializableExtra("buybean");
         salebean = (SaleItem) getIntent().getSerializableExtra("salebean");
-        if(Buybean!=null){
+        if (Buybean != null) {
             tvDetailBuyTitle.setText(Buybean.getTitle());
             tvDetailBuyAuthor.setText(Buybean.getAuthor());
             tvDetailBuyTime.setText(Buybean.getCreatedAt().substring(0, 10));
             tvDetailBuyDesc.setText(Buybean.getContent());
-            tvDetailBuyTel.setText(Buybean.getTel());
+            tvDetailBuyTel.setText("联系方式：" + Buybean.getTel());
+            tvDetailBuyPrice.setText(Buybean.getPrice());
 
             if (Buybean.getPic() != null) {
                 ivBuyDetail.setVisibility(View.VISIBLE);
@@ -60,16 +61,16 @@ public class BuyDetailActivity extends BaseActivity {
                         .load(Buybean.getPic().getFileUrl())      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
                         .error(R.mipmap.default_image)           //设置错误图片
                         .placeholder(R.mipmap.default_image)     //设置占位图片
-                        .centerCrop()
+                        .fitCenter()
                         .into(ivBuyDetail);
             }
-        }else{
+        } else {
             tvDetailBuyTitle.setText(salebean.getTitle());
             tvDetailBuyAuthor.setText(salebean.getAuthor());
             tvDetailBuyTime.setText(salebean.getCreatedAt().substring(0, 10));
             tvDetailBuyDesc.setText(salebean.getContent());
-            tvDetailBuyTel.setText(salebean.getTel());
-
+            tvDetailBuyTel.setText("联系方式：" + salebean.getTel());
+            tvDetailBuyPrice.setText(salebean.getPrice());
             if (salebean.getPic() != null) {
                 ivBuyDetail.setVisibility(View.VISIBLE);
                 Glide.with(BuyDetailActivity.this)                             //配置上下文
@@ -80,23 +81,24 @@ public class BuyDetailActivity extends BaseActivity {
                         .into(ivBuyDetail);
             }
         }
-        
+
     }
+
     @OnClick(R.id.bt_detail_buy_tel)
     public void onViewClicked() {
-        if (!(Buybean==null)) {
+        if (!(Buybean == null)) {
             LogUtils.e("TEL:" + Buybean.getTel());
             //跳到拨号页面
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Buybean.getTel()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else if(!(salebean==null)){
+        } else if (!(salebean == null)) {
             LogUtils.e("TEL:" + salebean.getTel());
             //跳到拨号页面
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + salebean.getTel()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else{
+        } else {
             Toast.makeText(this, "该用户没有留下电话信息，请私信尝试", Toast.LENGTH_SHORT).show();
         }
     }

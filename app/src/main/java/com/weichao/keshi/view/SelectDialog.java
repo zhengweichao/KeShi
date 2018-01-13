@@ -18,19 +18,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.weichao.keshi.R;
 
 import java.util.List;
 
 /**
- * 选择对话框
- *
- * Author: nanchen
- * Email: liushilin520@foxmail.com
- * Date: 2017-03-22  11:38
+ * @ 创建时间: 2017/9/18 on 22:49.
+ * @ 描述：选择对话框
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class SelectDialog extends Dialog implements OnClickListener,OnItemClickListener {
     private SelectDialogListener mListener;
     private Activity mActivity;

@@ -34,5 +34,4 @@
         android:paddingTop="1dp"
         android:text="@string/xiaoli_tip0" />
 
-
 </LinearLayout>

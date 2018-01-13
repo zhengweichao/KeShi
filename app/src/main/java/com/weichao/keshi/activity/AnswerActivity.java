@@ -1,6 +1,5 @@
 package com.weichao.keshi.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -18,12 +17,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
-import com.weichao.keshi.CONFIG;
+import com.weichao.keshi.MyUrl;
 import com.weichao.keshi.R;
 import com.weichao.keshi.bean.JsonQuestBean;
 import com.weichao.keshi.bean.QuestBean;
 import com.weichao.keshi.db.LoveDao;
 import com.weichao.keshi.fragment.AnswerFragment;
+import com.weichao.keshi.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +142,7 @@ public class AnswerActivity extends BaseActivity implements Chronometer.OnChrono
         progressDialog.setMessage("获取题目中...");
         progressDialog.show();
 //        联网
-        OkGo.get(CONFIG.URL_GETQUEST1)
+        OkGo.get(MyUrl.URL_GETQUEST1)
                 .params("type", type)
                 .execute(new StringCallback() {
                     @Override
@@ -155,10 +155,11 @@ public class AnswerActivity extends BaseActivity implements Chronometer.OnChrono
                         for (int i = 0; i < messages.size(); i++) {
                             QuestBean questBeanQ = messages.get(i);
                             questBeanQ.setId(i);
-                            fragmentlists.add(new AnswerFragment(questBeanQ));
+//                            fragmentlists.add(new AnswerFragment(questBeanQ));
+                            fragmentlists.add(new AnswerFragment());
                             LoveDao.insertLove(questBeanQ);
                             a.add(questBeanQ.getId() + "");
-                            Log.e("zwc", i + "ooooooonSuccessssssssssss: " + questBeanQ.getId() + questBeanQ.getTitle());
+                            LogUtils.e(i + "ooooooonSuccessssssssssss: " + questBeanQ.getId() + questBeanQ.getTitle());
                         }
 //                        设置适配器
                         vp_answer.setAdapter(new MainAdapter(getSupportFragmentManager()));
@@ -167,10 +168,10 @@ public class AnswerActivity extends BaseActivity implements Chronometer.OnChrono
 
                     @Override
                     public void onError(Call call, Response response, Exception e) {
-                        Log.i("zwc", "onError///////////////////");
+                        LogUtils.e( "onError///////////////////");
                     }
                 });
-        Log.e("zwc", "initNet: 联网结束…………");
+        LogUtils.e("initNet: 联网结束…………");
     }
 
     /**

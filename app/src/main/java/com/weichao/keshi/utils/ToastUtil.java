@@ -6,9 +6,11 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.github.zhitaocai.toastcompat.ToastCompat;
+
 /**
  * @ 创建时间: 2017/10/2 on 8:29.
- * @ 描述：
+ * @ 描述：吐司工具类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
 
@@ -25,7 +27,6 @@ public class ToastUtil {
 
         if (toast == null) {
             toast = Toast.makeText(context, sequence, Toast.LENGTH_SHORT);
-
         } else {
             toast.setText(sequence);
         }
@@ -88,13 +89,13 @@ public class ToastUtil {
      * @param sequence
      * @param duration
      */
-    public static void show(Context context, CharSequence sequence, int duration) {
-        if (toast == null) {
-            toast = Toast.makeText(context, sequence, duration);
+    public static void show(Context context, String sequence, int duration) {
+        ToastCompat.makeText(context, sequence, duration).show();
+        /*if (toast == null) {
         } else {
             toast.setText(sequence);
         }
-        toast.show();
+        toast.show();*/
 
     }
 

@@ -9,7 +9,6 @@ import java.util.Random;
  * @ 描述：
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class ColorGenerator {
     public static ColorGenerator DEFAULT;
 

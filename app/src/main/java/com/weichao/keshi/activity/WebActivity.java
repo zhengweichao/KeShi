@@ -2,7 +2,6 @@ package com.weichao.keshi.activity;
 
 import android.os.Build;
 import android.view.KeyEvent;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,6 +13,11 @@ import com.weichao.keshi.utils.LogUtils;
 
 import butterknife.Bind;
 
+/**
+ * @ 创建时间: 2017/7/23 on 22:09.
+ * @ 描述：Web页面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class WebActivity extends BaseActivity {
 
     @Bind(R.id.wv)

@@ -2,14 +2,17 @@ package com.weichao.keshi.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.weichao.keshi.R;
 import com.weichao.keshi.activity.LoseDetailActivity;
@@ -19,6 +22,7 @@ import com.weichao.keshi.bean.LoseItem;
 
 import com.weichao.keshi.cootab.RecyclerAdapter;
 import com.weichao.keshi.utils.LogUtils;
+import com.weichao.keshi.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +33,15 @@ import cn.bmob.v3.listener.FindListener;
 import xyz.zpayh.adapter.IMultiItem;
 import xyz.zpayh.adapter.OnItemClickListener;
 
+/**
+ * @ 创建时间: 2017/9/14 on 15:29.
+ * @ 描述：失物招领 捡
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class LoseFragment2 extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mAdapter;
-
+    private SwipeRefreshLayout splMainNews;
     private List<String> mDatas;
     private static final String ARG_TITLE = "title";
     private String mTitle;
@@ -58,6 +67,7 @@ public class LoseFragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
+        splMainNews = (SwipeRefreshLayout) v.findViewById(R.id.spl_main_news);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         initData();
         return v;
@@ -105,6 +115,28 @@ public class LoseFragment2 extends Fragment {
                 startActivity(intent);
             }
         });
+        splMainNews.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(1500);
+                        //停止刷新操作，
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //停止刷新操作
+                                splMainNews.setRefreshing(false);
+                                ToastUtil.show(getActivity(), "没有更多数据了！", Toast.LENGTH_SHORT);
+                            }
+                        });
+                    }
+                }).start();
+
+            }
+        });
+
     }
 
 }

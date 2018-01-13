@@ -9,19 +9,21 @@ import android.widget.TextView;
 
 
 import com.weichao.keshi.R;
-import com.weichao.keshi.bean.ListBean;
+import com.weichao.keshi.bean.PhotoBean;
 
 import java.util.List;
 
 /**
- * @Description:ReclyclerView的列表适配器
+ * @ 创建时间: 2017/6/8 on 13:23.
+ * @ 描述：
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerHolder> {
 
     private Context context;
-    private List<ListBean> listData;
+    private List<PhotoBean> listData;
 
-    public RecyclerAdapter(Context context, List<ListBean> listData) {
+    public RecyclerAdapter(Context context, List<PhotoBean> listData) {
         this.context = context;
         this.listData = listData;
     }
@@ -37,7 +39,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
-
 
     /**
      * 创建一个ViewHolder对象
@@ -122,9 +123,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
          *
          * @param listBean
          */
-        public void setDataAndRefreshUI(ListBean listBean) {
+        public void setDataAndRefreshUI(PhotoBean listBean) {
             itemText.setText(listBean.getName());
-            itemImage.setImageResource(listBean.getIconId());
+//            itemImage.setImageResource(listBean.getIconId());
         }
     }
 

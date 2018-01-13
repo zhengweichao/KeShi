@@ -13,28 +13,27 @@
         android:paddingTop="56dp">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="155dp"
             android:layout_height="72dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
             android:src="@drawable/logo" />
 
-        <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
+                android:hint="真实姓名"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- mobile number -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,8 +86,8 @@
             <EditText
                 android:id="@+id/input_yanzheng"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="输入手机收到的验证码" />
 
             <Button

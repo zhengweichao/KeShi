@@ -1,10 +1,5 @@
 package com.weichao.keshi.adapter;
 
-/**
- * @ 创建时间: 2017/9/18 on 22:02.
- * @ 描述：
- * @ 作者: 郑卫超 QQ: 2318723605
- */
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -23,9 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by MQ on 2017/5/8.
+ * @ 创建时间: 2017/9/24 on 22:02.
+ * @ 描述：校园通讯录适配器
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycleHolder> implements View.OnClickListener {
 
     private List<Teacher> contactBeanList;
@@ -83,6 +79,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycl
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
+
     @Override
     public int getItemCount() {
         return contactBeanList.size();
@@ -92,7 +89,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycl
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
             //注意这里使用getTag方法获取position
-            mOnItemClickListener.onItemClick(v,(int)v.getTag());
+            mOnItemClickListener.onItemClick(v, (int) v.getTag());
         }
     }
 
@@ -106,10 +103,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyRecycl
             iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
         }
     }
+
     private OnItemClickListener mOnItemClickListener = null;
+
     //define interface
     public static interface OnItemClickListener {
-        void onItemClick(View view , int position);
+        void onItemClick(View view, int position);
     }
 
 

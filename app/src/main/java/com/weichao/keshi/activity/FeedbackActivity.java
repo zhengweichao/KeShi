@@ -2,7 +2,6 @@ package com.weichao.keshi.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +21,11 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
+/**
+ * @ 创建时间: 2017/10/2 on 17:12.
+ * @ 描述：意见反馈界面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class FeedbackActivity extends BaseActivity {
 
     @Bind(R.id.et_feedback_theme)
@@ -30,7 +34,6 @@ public class FeedbackActivity extends BaseActivity {
     EditText etFeedbackContent;
     @Bind(R.id.bt_feedback)
     Button btFeedback;
-    private ArrayList bmobList;
 
     @Override
     protected int getLayoutId() {
@@ -46,7 +49,6 @@ public class FeedbackActivity extends BaseActivity {
             ToastUtil.showShort(FeedbackActivity.this, "请将信息填写完整！");
         } else {
             LoadDialog.show(FeedbackActivity.this, "反馈中……");
-
             Feedback bean = new Feedback();
             MyUser user = BmobUser.getCurrentUser(MyUser.class);
             bean.setTheme(theme);
@@ -69,7 +71,6 @@ public class FeedbackActivity extends BaseActivity {
                     LoadDialog.dismiss(FeedbackActivity.this);
                 }
             });
-
 
         }
     }

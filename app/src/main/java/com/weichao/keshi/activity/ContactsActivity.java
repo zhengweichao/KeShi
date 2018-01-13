@@ -27,7 +27,9 @@ import cn.bmob.v3.listener.FindListener;
 import it.gmariotti.recyclerview.itemanimator.SlideInOutLeftItemAnimator;
 
 /**
- * 联系人页面
+ * @ 创建时间: 2017/9/28 on 00:12.
+ * @ 描述：校园通讯录页面
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class ContactsActivity extends BaseActivity {
 

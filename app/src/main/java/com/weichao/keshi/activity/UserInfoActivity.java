@@ -3,7 +3,6 @@ package com.weichao.keshi.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
-import com.weichao.keshi.CONFIG;
+import com.weichao.keshi.MyUrl;
 import com.weichao.keshi.R;
 import com.weichao.keshi.bean.JsonRealBean;
 import com.weichao.keshi.bean.MyUser;
@@ -28,11 +27,16 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.FetchUserInfoListener;
 import cn.bmob.v3.listener.UpdateListener;
 import okhttp3.Call;
 import okhttp3.Response;
 
+/**
+ * @ 创建时间: 2017/5/23 on 22:09.
+ * @ 描述：用户信息页面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class UserInfoActivity extends BaseActivity {
 
     @Bind(R.id.tv_user_info_name)
@@ -95,7 +99,6 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     void processClick(View v) {
-
         switch (v.getId()) {
             case R.id.ll_user_info_class:
             case R.id.ll_user_info_sex:
@@ -107,6 +110,9 @@ public class UserInfoActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 实名认证
+     */
     private void RealName() {
         View view = LayoutInflater.from(UserInfoActivity.this).inflate(R.layout.dialog_reallyname, null);
         et_real_stuno = (EditText) view.findViewById(R.id.et_real_stuno);
@@ -132,43 +138,42 @@ public class UserInfoActivity extends BaseActivity {
                     }
                 })
                 .setTitle("实名认证")
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.ic_app_logo)
                 .setView(view)
                 .create();
         dialog.show();
     }
 
     private void UpdateReal() {
-        LoadDialog.show(UserInfoActivity.this);
+        LoadDialog.show(UserInfoActivity.this, "实名认证中");
         String name = et_real_name.getText().toString().trim();
         final String stuno = et_real_stuno.getText().toString().trim();
-        OkGo.get(CONFIG.URL_QUERY)
+        OkGo.get(MyUrl.URL_QUERY)
                 .params("stuname", name)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Log.e("zwc", "onSuccess: " + s);
+                        LogUtils.e("onSuccess: " + s);
                         JsonRealBean jsonRealBean = new Gson().fromJson(s, JsonRealBean.class);
-                        Log.e("zwc", "onSuccess: " + jsonRealBean.getList().get(0).getStu_no() + ":::::" + jsonRealBean.getList().size());
+                        LogUtils.e("onSuccess: " + jsonRealBean.getList().get(0).getStu_no() + ":::::" + jsonRealBean.getList().size());
                         for (int i = 0; i < jsonRealBean.getList().size(); i++) {
                             if (stuno.equals(jsonRealBean.getList().get(i).getStu_no() + "")) {
-                                Log.e("zwc", "onSuccess: 11111");
                                 tvUserInfoName.setText(jsonRealBean.getList().get(i).getName());
                                 tvUserInfoSex.setText(jsonRealBean.getList().get(i).getSex());
                                 tvUserInfoStuno.setText(jsonRealBean.getList().get(i).getStu_no());
                                 tvUserInfoYuan.setText(jsonRealBean.getList().get(i).getYuanxi());
                                 tvUserInfoClass.setText(jsonRealBean.getList().get(i).getZhuanye());
                                 SPUtils.put(UserInfoActivity.this, "real", "true");
-                                Log.e("zwc", "onSuccess: 实名认证成功！");
-
+                                LogUtils.e("onSuccess: 实名认证成功！");
                                 MyUser bean = new MyUser();
                                 bean.setUsername(jsonRealBean.getList().get(i).getName());
+                                bean.setStuno(jsonRealBean.getList().get(i).getStu_no());
                                 bean.setSex(jsonRealBean.getList().get(i).getSex());
                                 bean.setClazz(jsonRealBean.getList().get(i).getZhuanye());
                                 bean.setYuan(jsonRealBean.getList().get(i).getYuanxi());
 
                                 MyUser bmobUser = BmobUser.getCurrentUser(MyUser.class);
-                                bmobUser.update(bmobUser.getObjectId(), new UpdateListener() {
+                                bean.update(bmobUser.getObjectId(), new UpdateListener() {
 
                                     @Override
                                     public void done(BmobException e) {
@@ -176,12 +181,14 @@ public class UserInfoActivity extends BaseActivity {
                                             LogUtils.e("个人信息更新成功！");
                                             btRealName.setVisibility(View.GONE);
                                             ToastUtil.show(UserInfoActivity.this, "实名认证成功", Toast.LENGTH_SHORT);
+                                            fetchUserInfo();
                                         } else {
                                             LogUtils.e("错误：" + e.getMessage());
                                             ToastUtil.show(UserInfoActivity.this, "实名认证失败", Toast.LENGTH_SHORT);
                                         }
                                     }
                                 });
+
                                 LoadDialog.dismiss(UserInfoActivity.this);
                                 return;
                             }
@@ -194,5 +201,24 @@ public class UserInfoActivity extends BaseActivity {
     @OnClick(R.id.bt_real_name)
     public void onViewClicked() {
         RealName();
+    }
+
+    /**
+     * 更新本地用户信息
+     * 注意：需要先登录，否则会报9024错误
+     *
+     * @see cn.bmob.v3.helper.ErrorCode#E9024S
+     */
+    private void fetchUserInfo() {
+        BmobUser.fetchUserJsonInfo(new FetchUserInfoListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+                    LogUtils.e("Newest UserInfo is " + s);
+                } else {
+                    LogUtils.e(e.toString());
+                }
+            }
+        });
     }
 }

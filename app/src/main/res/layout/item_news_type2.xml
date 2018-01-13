@@ -17,6 +17,7 @@
         <TextView
             android:id="@+id/tv_type2_title"
             android:layout_width="match_parent"
+            android:lines="2"
             android:layout_height="wrap_content"
             android:text="习近平：坚持走中国特色社会主义社会治理之路"
             android:textColor="#000"
@@ -53,8 +54,7 @@
         android:layout_width="110dp"
         android:layout_height="80dp"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="6dp"
-        android:src="@mipmap/bg_ios" />
+        android:layout_marginLeft="6dp" />
 
     <TextView
         android:layout_width="match_parent"

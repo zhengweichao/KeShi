@@ -1,16 +1,21 @@
 package com.weichao.keshi.activity;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.weichao.keshi.R;
+import com.weichao.keshi.bean.PhotoBean;
+
+import butterknife.Bind;
 
 public class PicDetailActivity extends BaseActivity {
 
-    private TextView tv_desc;
-    private ImageView iv_detail;
+    @Bind(R.id.iv_detail)
+    ImageView ivDetail;
+    @Bind(R.id.tv_description)
+    TextView tvDescription;
+    private PhotoBean bean;
 
     @Override
     protected int getLayoutId() {
@@ -19,16 +24,27 @@ public class PicDetailActivity extends BaseActivity {
 
     @Override
     void initView() {
-        tv_desc = (TextView) findViewById(R.id.tv_description);
-        iv_detail = (ImageView) findViewById(R.id.iv_detail);
+        bean = (PhotoBean) getIntent().getSerializableExtra("bean");
+
     }
 
     @Override
     void initData() {
-        // TODO: 2017/4/16 接收传递来的bean对象
-        int position = getIntent().getExtras().getInt("position");
-        tv_desc.setText("这是第" + position + "张图片");
-        iv_detail.setImageResource(getIntent().getExtras().getInt("id"));
+//        ivDetail.setImageResource(getIntent().getExtras().getInt("id"));
+//        String desc = getIntent().getStringExtra("desc");
+//        tvDescription.setText("  "+desc);
+        tvDescription.setText(bean.getDescription());
+        if (bean.getPic() != null) {
+            Glide.with(PicDetailActivity.this)                             //配置上下文
+                    .load(bean.getPic())      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
+                    .error(R.mipmap.default_image)           //设置错误图片
+                    .placeholder(R.mipmap.default_image)     //设置占位图片
+                    .fitCenter()
+                    .into(ivDetail);
+        }
+
+
     }
+
 
 }

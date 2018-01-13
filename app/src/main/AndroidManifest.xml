@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <!-- 连网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- SD卡中用到的 -->
@@ -24,17 +24,17 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_keshi"
+        android:roundIcon="@mipmap/ic_app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.WebGuideActivity" />
+        <activity android:name=".activity.ReviewTestActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity
@@ -53,10 +53,6 @@
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen" />
         <activity android:name=".activity.BuyActivity" />
-        <activity android:name=".activity.SchoolDateActivity" />
-        <activity android:name=".activity.StudentActivity" />
-        <activity android:name=".activity.StuDetailActivity" />
-        <activity android:name=".activity.RecyclerActivity" />
         <activity android:name=".activity.PicDetailActivity" />
         <activity android:name=".activity.AnswerActivity" />
         <activity android:name=".activity.GradeActivity" />
@@ -73,7 +69,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.ClassActivity" />
         <activity android:name=".activity.ContactsActivity" />
 
         <meta-data
@@ -109,7 +104,10 @@
         <activity android:name=".activity.LoseDetailActivity" />
         <activity android:name=".activity.BuyAddActivity" />
         <activity android:name=".activity.BuyDetailActivity" />
-        <activity android:name=".activity.TeamActivity"></activity>
+        <activity android:name=".activity.TeamActivity" />
+        <activity android:name=".activity.TeamDetailActivity" />
+        <activity android:name=".activity.LoveActivity" />
+        <activity android:name=".activity.CourseActivity"></activity>
     </application>
 
 </manifest>

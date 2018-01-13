@@ -12,10 +12,10 @@ import com.weichao.keshi.R;
 import java.util.List;
 
 /**
- * Created by hugeterry(http://hugeterry.cn)
- * Date: 17/1/28 22:31
+ * @ 创建时间: 2017/9/24 on 22:02.
+ * @ 描述：
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class CooRecyclerAdapter extends RecyclerView.Adapter<CooRecyclerAdapter.MyViewHolder> {
     private Context mContext;
     private List<String> mDatas;

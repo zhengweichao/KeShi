@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @ 创建时间: 2017/9/27 on 10:52.
+ * @ 描述：图片选择器适配器
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.SelectedPicViewHolder> {
     private int maxImgCount;

@@ -12,6 +12,9 @@ import com.weichao.keshi.R;
 import java.io.File;
 
 /**
+ * @ 创建时间: 2017/9/28 on 19:39.
+ * @ 描述：Glide图片加载
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class GlideImageLoader0 implements ImageLoader {
 

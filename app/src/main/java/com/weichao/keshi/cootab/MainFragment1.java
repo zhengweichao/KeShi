@@ -2,21 +2,24 @@ package com.weichao.keshi.cootab;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.weichao.keshi.R;
 import com.weichao.keshi.activity.NewsWebActivity;
 import com.weichao.keshi.adapter.NNNAdapter;
 import com.weichao.keshi.bean.NewsBean;
 import com.weichao.keshi.utils.LogUtils;
+import com.weichao.keshi.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +30,19 @@ import cn.bmob.v3.listener.FindListener;
 import xyz.zpayh.adapter.OnItemClickListener;
 
 /**
- * Created by hugeterry(http://hugeterry.cn)
- * Date: 17/1/28 17:36
+ * @ 创建时间: 2017/10/3 on 12:49.
+ * @ 描述：新闻页面1
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
 public class MainFragment1 extends Fragment {
     private RecyclerView mRecyclerView;
-    private RecyclerAdapter mAdapter;
 
-    private List<String> mDatas;
     private static final String ARG_TITLE = "title";
     private String mTitle;
     private NNNAdapter nnnAdapter;
     private ArrayList<NewsBean> newsBeen;
+    private SwipeRefreshLayout splMainNews;
+    private int refreshCount = 1;
 
     public static MainFragment1 getInstance(String title) {
         MainFragment1 fra = new MainFragment1();
@@ -59,6 +63,7 @@ public class MainFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
+        splMainNews = (SwipeRefreshLayout) v.findViewById(R.id.spl_main_news);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         initData();
         return v;
@@ -80,16 +85,59 @@ public class MainFragment1 extends Fragment {
                 startActivity(intent);
             }
         });
-    }
+        splMainNews.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(1500);
+                        BmobQuery<NewsBean> query = new BmobQuery<NewsBean>();
+                        query.order("-time");
+                        query.setLimit(10);
+                        query.addWhereEqualTo("kind", "a");
+                        query.setSkip(10 * refreshCount);
+                        //执行查询方法
+                        query.findObjects(new FindListener<NewsBean>() {
+                            @Override
+                            public void done(List<NewsBean> object, BmobException e) {
+                                if (e == null) {
+                                    LogUtils.e("查询成功：共" + object.size() + "条数据。");
+                                    refreshCount++;
+                                    if (object.size() == 0) {
+                                        ToastUtil.show(getActivity(), "暂无更多数据", Toast.LENGTH_SHORT);
+                                    } else {
+                                        for (NewsBean newsBean : object) {
+                                            newsBeen.add(0, newsBean);
+                                            LogUtils.e(newsBean.getAuthor());
+                                        }
+                                        nnnAdapter.setData(newsBeen);
+                                        //得到adapter.然后刷新
+                                        mRecyclerView.getAdapter().notifyDataSetChanged();
+                                        ToastUtil.show(getActivity(), "刷新成功", Toast.LENGTH_SHORT);
+                                    }
+                                    //停止刷新操作
+                                    splMainNews.setRefreshing(false);
+                                } else {
+                                    LogUtils.e("失败：" + e.getMessage() + "," + e.getErrorCode());
+                                }
+                            }
+                        });
+                    }
+                }).start();
 
+            }
+        });
+
+
+    }
     protected void initData() {
         nnnAdapter = new NNNAdapter();
         newsBeen = new ArrayList<>();
         BmobQuery<NewsBean> query = new BmobQuery<NewsBean>();
         query.order("-time");
-        //返回6条数据，如果不加上这条语句，默认返回10条数据
+        query.addWhereEqualTo("kind", "a");
         query.setLimit(10);
-        //执行查询方法
         query.findObjects(new FindListener<NewsBean>() {
             @Override
             public void done(List<NewsBean> object, BmobException e) {
@@ -105,9 +153,7 @@ public class MainFragment1 extends Fragment {
                 }
             }
         });
-
         mRecyclerView.setAdapter(nnnAdapter);
     }
-
 
 }

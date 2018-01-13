@@ -16,16 +16,16 @@ import java.util.ArrayList;
 
 import cn.hugeterry.coordinatortablayout.CoordinatorTabLayout;
 
-
 /**
- * Created by 郑卫超 on 2017/5/3.
+ * @ 创建时间: 2017/9/21 on 19:39.
+ * @ 描述：新闻页面fragment
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class TabNewsFragment extends BaseFragment {
     private CoordinatorTabLayout mCoordinatorTabLayout;
     private int[] mImageArray, mColorArray;
     private ViewPager mViewPager;
-    private final String[] mTitles = {"通知公告", "校内新闻","学术竞赛" ,"社团活动" };
+    private final String[] mTitles = {"通知公告", "新闻速递","自媒体" ,"校园文化" };
     private ArrayList<Fragment> mFragments;
 
     @Override
@@ -38,6 +38,7 @@ public class TabNewsFragment extends BaseFragment {
 
     @Override
     public void initData() {
+
         initFragments();
         initViewPager();
 

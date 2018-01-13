@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
@@ -17,13 +15,12 @@ import butterknife.ButterKnife;
  * @ 描述：BaseFragment 基类
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
-public abstract  class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     public FragmentActivity mActivity;
 
     @Override
-    public  void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
     }
@@ -31,7 +28,7 @@ public abstract  class BaseFragment extends Fragment {
     @Nullable
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =initView();
+        View view = initView();
         ButterKnife.bind(this, view);
         return view;
     }
@@ -54,7 +51,7 @@ public abstract  class BaseFragment extends Fragment {
     /**
      * 初始化监听器
      */
-    public  abstract void initListener();
+    public abstract void initListener();
 
     @Override
     public void onDestroyView() {

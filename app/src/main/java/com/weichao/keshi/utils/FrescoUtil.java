@@ -35,21 +35,22 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 /**
- * Created by Administrator on 2016/11/14.
+ * @ 创建时间: 2017/8/21 on 19:39.
+ * @ 描述：Fresco工具类
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class FrescoUtil {
-    private FrescoUtil(){}
-
+    private FrescoUtil() {
+    }
 
     public static void setWrapAndResizeImage(@NonNull final SimpleDraweeView view, @NonNull final String path,
-                                             final int viewWidth,@Nullable final Point size){
+                                             final int viewWidth, @Nullable final Point size) {
         Preconditions.checkNotNull(view);
         Preconditions.checkNotNull(path);
-        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>(){
+        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                if (imageInfo == null){
+                if (imageInfo == null) {
                     return;
                 }
                 final float width = imageInfo.getWidth();
@@ -58,11 +59,11 @@ public class FrescoUtil {
                     view.setAspectRatio(width / height);
                     final int viewHeight = (int) (height * viewWidth / width);
 
-                    if (size != null){
-                        size.set(viewWidth,viewHeight);
+                    if (size != null) {
+                        size.set(viewWidth, viewHeight);
                     }
 
-                    setResizeImage(view,path,new ResizeOptions(viewWidth,viewHeight));
+                    setResizeImage(view, path, new ResizeOptions(viewWidth, viewHeight));
                 }
             }
         };
@@ -78,13 +79,13 @@ public class FrescoUtil {
                 .build());
     }
 
-    public static void setWrapImage(@NonNull final SimpleDraweeView view, @NonNull final String path){
+    public static void setWrapImage(@NonNull final SimpleDraweeView view, @NonNull final String path) {
         Preconditions.checkNotNull(view);
         Preconditions.checkNotNull(path);
-        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>(){
+        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                if (imageInfo == null){
+                if (imageInfo == null) {
                     return;
                 }
                 final float width = imageInfo.getWidth();
@@ -107,7 +108,7 @@ public class FrescoUtil {
     }
 
     public static void setResizeImage(@NonNull final SimpleDraweeView view, @NonNull final String path,
-                                      @NonNull ResizeOptions resize){
+                                      @NonNull ResizeOptions resize) {
         Preconditions.checkNotNull(view);
         Preconditions.checkNotNull(path);
         Preconditions.checkNotNull(resize);
@@ -125,27 +126,27 @@ public class FrescoUtil {
     }
 
     public static void resizeImage(@NonNull final SimpleDraweeView view, @DrawableRes int resId,
-                                      int width, int height){
+                                   int width, int height) {
         String path = "res://包名(实际可以是任何字符串甚至留空)/" + resId;
-        resizeImage(view,path,width,height);
+        resizeImage(view, path, width, height);
     }
 
     public static void resizeImage(@NonNull final SimpleDraweeView view, @NonNull final String path,
-                                      final int viewWidth){
+                                   final int viewWidth) {
         Preconditions.checkNotNull(view);
         Preconditions.checkNotNull(path);
 
-        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>(){
+        ControllerListener<ImageInfo> controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                if (imageInfo == null){
+                if (imageInfo == null) {
                     return;
                 }
                 final float width = imageInfo.getWidth();
                 final float height = imageInfo.getHeight();
                 if (width * height != 0.0f) {
                     final int viewHeight = (int) (height * viewWidth / width);
-                    setResizeImage(view,path,new ResizeOptions(viewWidth,viewHeight));
+                    setResizeImage(view, path, new ResizeOptions(viewWidth, viewHeight));
                 }
             }
         };
@@ -161,7 +162,7 @@ public class FrescoUtil {
                 .build());
     }
 
-    public static void resizeImage(@NonNull SimpleDraweeView view, @NonNull String url, int width, int height){
+    public static void resizeImage(@NonNull SimpleDraweeView view, @NonNull String url, int width, int height) {
         com.facebook.common.internal.Preconditions.checkNotNull(view);
         com.facebook.common.internal.Preconditions.checkNotNull(url);
 
@@ -177,10 +178,10 @@ public class FrescoUtil {
                 .build();
 
         view.setController(controller);
-        view.setAspectRatio((float)width/(float)height);
+        view.setAspectRatio((float) width / (float) height);
     }
 
-    public static void setImage(@NonNull SimpleDraweeView view, @Nullable String path){
+    public static void setImage(@NonNull SimpleDraweeView view, @Nullable String path) {
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(path)
                 .setTapToRetryEnabled(true)
@@ -190,7 +191,7 @@ public class FrescoUtil {
         view.setController(controller);
     }
 
-    public static void delete(@NonNull Uri uri){
+    public static void delete(@NonNull Uri uri) {
         ImagePipeline pipeline = Fresco.getImagePipeline();
         pipeline.evictFromDiskCache(uri);
         pipeline.evictFromMemoryCache(uri);
@@ -202,27 +203,27 @@ public class FrescoUtil {
 
         boolean isInCache = pipeline.isInDiskCacheSync(Uri.parse(url));
 
-        if (isInCache){
+        if (isInCache) {
             BinaryResource resource = factory.getMainFileCache().getResource(new SimpleCacheKey(url));
-            if (resource instanceof FileBinaryResource){
+            if (resource instanceof FileBinaryResource) {
                 FileBinaryResource fileResource = (FileBinaryResource) resource;
                 FileChannel input = new FileInputStream(fileResource.getFile()).getChannel();
                 FileChannel output = new FileOutputStream(outputFile).getChannel();
-                output.transferFrom(input,0,input.size());
+                output.transferFrom(input, 0, input.size());
                 input.close();
                 output.close();
                 return true;
             }
         }
         boolean isMemoryCache = pipeline.isInBitmapMemoryCache(Uri.parse(url));
-        if (!isMemoryCache){
+        if (!isMemoryCache) {
             return false;
         }
         ImageRequest request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(url))
                 .build();
-        DataSource<CloseableReference<CloseableImage>> dataSource =  pipeline.fetchImageFromBitmapCache(request,null);
-        if (!dataSource.isFinished()){
+        DataSource<CloseableReference<CloseableImage>> dataSource = pipeline.fetchImageFromBitmapCache(request, null);
+        if (!dataSource.isFinished()) {
             return false;
         }
         CloseableReference<CloseableImage> closeableImageRef = dataSource.getResult();
@@ -232,12 +233,12 @@ public class FrescoUtil {
                 closeableImageRef.get() instanceof CloseableBitmap) {
             bitmap = ((CloseableBitmap) closeableImageRef.get()).getUnderlyingBitmap();
         }
-        if (bitmap == null){
+        if (bitmap == null) {
             return false;
         }
         FileOutputStream outputStream = new FileOutputStream(outputFile);
 
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         outputStream.flush();
         outputStream.close();
 

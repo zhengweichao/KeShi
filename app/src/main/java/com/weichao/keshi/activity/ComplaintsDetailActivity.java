@@ -1,11 +1,9 @@
 package com.weichao.keshi.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,12 +16,16 @@ import com.weichao.keshi.utils.ToastUtil;
 import com.weichao.keshi.view.LoadDialog;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
+/**
+ * @ 创建时间: 2017/10/2 on 17:12.
+ * @ 描述：投诉页面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class ComplaintsDetailActivity extends BaseActivity {
 
     @Bind(R.id.sp_comp_kind)
@@ -35,11 +37,6 @@ public class ComplaintsDetailActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_complaints_detail;
-    }
-
-    @Override
-    void initData() {
-
     }
 
     @Override
@@ -56,20 +53,15 @@ public class ComplaintsDetailActivity extends BaseActivity {
 
             }
         });
-
     }
 
     @OnClick(R.id.bt_comp_submit)
     public void onViewClicked() {
-
-
         String content = etCompContent.getText().toString().trim();
-
         if (TextUtils.isEmpty(content)) {
             ToastUtil.showShort(ComplaintsDetailActivity.this, "请填写反馈信息！");
         } else {
             LoadDialog.show(ComplaintsDetailActivity.this, "反馈中……");
-
             Feedback bean = new Feedback();
             MyUser user = BmobUser.getCurrentUser(MyUser.class);
             bean.setTheme(kind);

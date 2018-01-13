@@ -16,6 +16,8 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -40,18 +42,13 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    /*androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile('cn.bmob.android:bmob-sdk:3.5.6') { exclude group: 'com.google.gson' }
+    })*/
+    compile('cn.bmob.android:bmob-sdk:3.5.7') { exclude group: 'com.google.gson' }
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
     compile name: 'SMSSDKGUI-2.1.4', ext: 'aar'
-
-    // TinyPinyin核心包，约80KB
-
-    // 可选，适用于Android的中国地区词典
-
-
+    compile 'io.github.zhitaocai:toastcompat:0.1.0'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.github.gabrielemariotti.recyclerview:recyclerview-animators:0.3.0-SNAPSHOT@aar'
     compile 'com.github.promeg:tinypinyin:2.0.3'
@@ -60,7 +57,7 @@ dependencies {
     compile 'cn.bmob.android:http-legacy:1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.greenrobot:greendao:3.2.0'
-    compile 'com.google.code.gson:gson:2.8.1'
+//    compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.lzy.net:okgo:2.1.4'
     compile 'com.lzy.net:okrx:0.1.2'
     compile 'com.lzy.net:okserver:1.1.3'

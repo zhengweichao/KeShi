@@ -1,7 +1,5 @@
 package com.weichao.keshi.adapter;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.weichao.keshi.R;
 import com.weichao.keshi.bean.MoudleItem;
 
@@ -10,10 +8,9 @@ import xyz.zpayh.adapter.BaseViewHolder;
 
 /**
  * @ 创建时间: 2017/5/17 on 13:09.
- * @ 描述：模块条目适配器
+ * @ 描述：首页模块条目适配器
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class MoudleAdapter extends BaseAdapter<MoudleItem> {
 
     @Override

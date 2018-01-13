@@ -5,89 +5,67 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stephentuso.welcome.WelcomeHelper;
 import com.weichao.keshi.R;
 import com.weichao.keshi.bean.MyUser;
 import com.weichao.keshi.utils.LogUtils;
+import com.weichao.keshi.utils.ToastUtil;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.LogInListener;
 
 /**
  * @ 创建时间: 2017/6/13 on 16:03.
  * @ 描述：登录页面
  * @ 作者: 郑卫超 QQ: 2318723605
  */
-public class LoginActivity extends Activity implements View.OnClickListener {
-    private static final int REQUEST_SIGNUP = 0;
+public class LoginActivity extends Activity {
+
+    @Bind(R.id.input_username)
     EditText et_username;
+    @Bind(R.id.input_password)
     EditText et_password;
-    Button btn_login;
-    TextView tv_signup;
+    @Bind(R.id.btn_login)
+    AppCompatButton btn_login;
+
+    private static final int REQUEST_SIGNUP = 0;
     WelcomeHelper welcomeScreen;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //得到布局文件
-        setContentView(getLayoutId());
-        //引导页面
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         welcomeScreen = new WelcomeHelper(this, MyWelcomeActivity.class);
         welcomeScreen.show(savedInstanceState);
-
-        //初始化View
-        initView();
-
-        //初始化界面数据
-        initData();
-
-        //绑定监听器与适配器
-        initListener();
     }
 
-    int getLayoutId() {
-        return R.layout.activity_login;
-    }
-
-    void initView() {
-        //通过id找控件
-        et_username = (EditText) findViewById(R.id.input_username);
-        et_password = (EditText) findViewById(R.id.input_password);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        tv_signup = (TextView) findViewById(R.id.link_signup);
-    }
-
-    void initData() {
-
-    }
-
-    void initListener() {
-        //登录按钮，注册链接设置点击监听事件
-        btn_login.setOnClickListener(this);
-        tv_signup.setOnClickListener(this);
-    }
-
-    void processClick(View v) {
-        switch (v.getId()) {
-            //点击登录按钮，执行登录操作
+    @OnClick({R.id.btn_login, R.id.link_signup})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.btn_login:
+                //如果内容不合法，则直接返回，显示错误。
+                if (!validate()) {
+                    onLoginFailed();
+                    return;
+                }
                 login();
                 break;
-            //如果点击了注册链接，则跳转到注册页面
             case R.id.link_signup:
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
                 //动画效果
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                break;
-            default:
                 break;
         }
     }
@@ -96,12 +74,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * 登录方法
      */
     public void login() {
-        //如果内容不合法，则直接返回，显示错误。
-        if (!validate()) {
-            onLoginFailed();
-            return;
-        }
-
         //输入合法，将登录按钮置为不可用，显示圆形进度对话框
         btn_login.setEnabled(false);
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
@@ -111,21 +83,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         //获取输入内容
         String username = et_username.getText().toString().trim();
         String password = et_password.getText().toString().trim();
-        //联网，获取数据
-        MyUser myUser = new MyUser();
-        myUser.setUsername(username);
-        myUser.setPassword(password);
-        myUser.login(new SaveListener<MyUser>() {
-
+        // 手机号登录
+        BmobUser.loginByAccount(username, password, new LogInListener<MyUser>() {
             @Override
-            public void done(MyUser bmobUser, BmobException e) {
-                if (e == null) {
+            public void done(MyUser user, BmobException e) {
+                if (user != null) {
                     LogUtils.e("登录成功:");
                     onLoginSuccess();
                     progressDialog.dismiss();
-
-                    //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
-                    //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                 } else {
                     LogUtils.e("登录失败");
                     onLoginFailed();
@@ -133,6 +98,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
             }
         });
+
+
     }
 
     @Override
@@ -149,7 +116,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      */
     @Override
     public void onBackPressed() {
-        // Disable going back to the MainActivity
+        // Disable going back to the ReviewTestActivity
         moveTaskToBack(true);
     }
 
@@ -167,7 +134,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * 登录失败
      */
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "登陆失败", Toast.LENGTH_LONG).show();
+        ToastUtil.show(getBaseContext(), "登陆失败", Toast.LENGTH_LONG);
         btn_login.setEnabled(true);
     }
 
@@ -206,12 +173,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         welcomeScreen.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                processClick(v);
-                break;
-        }
-    }
+
+
 }

@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.stephentuso.welcome.WelcomeHelper;
 import com.weichao.keshi.R;
 import com.weichao.keshi.utils.LightStatusBarUtils;
 import com.weichao.keshi.view.BottomTabView;
@@ -86,7 +84,6 @@ public abstract class BottomTabBaseActivity extends AppCompatActivity {
             }
         });
     }
-
 
     protected abstract List<BottomTabView.TabItemView> getTabViews();
 

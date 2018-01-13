@@ -49,6 +49,11 @@ import cn.bmob.v3.listener.UploadBatchListener;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
+/**
+ * @ 创建时间: 2017/10/3 on 16:25.
+ * @ 描述：失物招领发布页面
+ * @ 作者: 郑卫超 QQ: 2318723605
+ */
 public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
     @Bind(R.id.rv_lose_add_pic)
     RecyclerView rvLoseAddPic;
@@ -188,7 +193,7 @@ public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.
                 @Override
                 public void onSuccess(List<BmobFile> files, List<String> urls) {
 
-                    if ("寻物启事".equals(LoseUnit)) {
+                    if (!"寻物启事".equals(LoseUnit)) {
                         LoseItem bean = new LoseItem();
                         MyUser user = BmobUser.getCurrentUser(MyUser.class);
                         bean.setAuthor(user.getUsername());
@@ -245,19 +250,19 @@ public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.
                 public void onError(int statuscode, String errormsg) {
                     LogUtils.e("错误码" + statuscode + ",错误描述：" + errormsg);
                     Toast.makeText(LoseAddActivity.this, "发生错误，请稍后重试", Toast.LENGTH_SHORT).show();
-                    // TODO Auto-generated method stub
+
                     LoadDialog.dismiss(LoseAddActivity.this);
                 }
 
                 @Override
                 public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
                     Log.i("life", "insertBatchDatasWithOne -onProgress :" + curIndex + "---" + curPercent + "---" + total + "----" + totalPercent);
-                    // TODO Auto-generated method stub
+
                     LoadDialog.dismiss(LoseAddActivity.this);
                 }
             });
         } else {
-            if ("寻物启事".equals(LoseUnit)) {
+            if (!"寻物启事".equals(LoseUnit)) {
                 LoseItem bean = new LoseItem();
                 MyUser user = BmobUser.getCurrentUser(MyUser.class);
                 bean.setAuthor(user.getUsername());
@@ -348,9 +353,6 @@ public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.
                                 //打开选择,本次允许选择的数量
                                 ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
                                 Intent intent1 = new Intent(LoseAddActivity.this, ImageGridActivity.class);
-                                /* 如果需要进入选择的时候显示已经选中的图片，
-                                 * 详情请查看ImagePickerActivity
-                                 * */
                                 intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES, images);
                                 startActivityForResult(intent1, REQUEST_CODE_SELECT);
                                 break;
@@ -375,12 +377,10 @@ public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.
 
     @OnClick(R.id.bt_lose_add)
     public void onViewClicked() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
-        Date date = null;
         times = spnYear.getSelectedItem().toString() + "-" +
                 spnMonth.getSelectedItem().toString() + "-" +
                 spnDay.getSelectedItem().toString();
-        LogUtils.e("===" + times);
+        LogUtils.e("选择时间是：===" + times);
         loseTitle = etLoseTitle.getText().toString().trim();
         loseDesc = etLoseDesc.getText().toString().trim();
         loseTel = etLoseTel.getText().toString().trim();
@@ -392,7 +392,6 @@ public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.
             } else {
                 BmobUpSale(false);
             }
-
         } else {
             Toast.makeText(this, "请将信息填写完整！", Toast.LENGTH_SHORT).show();
         }
@@ -491,7 +490,6 @@ public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.
     }
 
     public int getYear() {
-        LogUtils.e("aaa" + Integer.parseInt(timeString.substring(0, 4)));
         return Integer.parseInt(timeString.substring(0, 4));
     }
 
@@ -502,6 +500,5 @@ public class LoseAddActivity extends BaseActivity implements ImagePickerAdapter.
     public int getDay() {
         return Integer.parseInt(timeString.substring(8, 10));
     }
-
 
 }

@@ -80,7 +80,6 @@ public class TextDrawable extends ShapeDrawable {
         super.draw(canvas);
         Rect r = getBounds();
 
-
         // draw border
         if (borderThickness > 0) {
             drawBorder(canvas);

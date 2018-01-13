@@ -1,10 +1,10 @@
 package com.weichao.keshi.utils;
 
 /**
- * @author DingChao
- *         2017/2/10
+ * @ 创建时间: 2017/8/11 on 19:39.
+ * @ 描述：测试工具类
+ * @ 作者: 郑卫超 QQ: 2318723605
  */
-
 public class Util {
     private static String[] nameArray = new String[]{
             "Windows", "Mac", "Linux"
@@ -16,9 +16,9 @@ public class Util {
                     "3、“我当初大腿被木仓击中，子弹直接从我的大腿中传过去，连带着我的肌腱也被击中，那种感觉我觉得用疼痛两个字已经不足以形容了\n" +
                     "4、“在我十七岁的时候，脚被木仓击中，当时我以为是被蜜蜂蛰了，因为仿佛听到了蜜蜂的声音，没过几秒钟，脚上就传来灼热感，这才知道原来是被木仓击中了。\n" +
                     "5、“我只是听到的木仓声，却没有意识到自己中木仓了。直到血流出来才意识到。所以，对我来讲，被子弹击中没什么感觉。"
-          ,
+            ,
             "GNOME or KDE desktop\n" +
-                   " processor with support for AMD Virtualization™ (AMD-V™)"
+                    " processor with support for AMD Virtualization™ (AMD-V™)"
 
 
     };
